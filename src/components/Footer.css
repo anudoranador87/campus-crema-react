@@ -79,19 +79,26 @@
 
 .mapa-acciones a,
 .mapa-acciones button {
-  border: 1px solid rgba(253,245,230,0.55);
-  background: transparent;
-  color: #FDF5E6;
+  border: 1px solid rgba(197,160,89,0.8);
+  background: linear-gradient(135deg, #c5a059 0%, #b5541a 100%);
+  color: #fff;
   border-radius: 999px;
-  padding: 8px 12px;
+  padding: 10px 16px;
   text-decoration: none;
   cursor: pointer;
+  font-weight: 700;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .mapa-acciones a:hover,
 .mapa-acciones button:hover {
-  background: #FDF5E6;
-  color: #1a3d2b;
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.24);
 }
 
 #btnpanel {
@@ -183,4 +190,56 @@
 .btn-cta-secondary:hover {
   background-color: #FDF5E6;
   color: #2D5A3F;
+}
+
+@media (max-width: 1024px) {
+  .main-footer {
+    height: auto;
+    padding: 34px 18px 18px;
+  }
+}
+
+@media (max-width: 768px) {
+  .main-footer {
+    padding: 30px 14px 16px;
+  }
+
+  .footer-content {
+    gap: 24px;
+  }
+
+  .footer-content div {
+    text-align: center;
+  }
+
+  .mapa-panel iframe {
+    height: 180px;
+  }
+
+  .cta-nosotros h2 {
+    font-size: 1.6rem;
+  }
+
+  .cta-buttons {
+    gap: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-footer {
+    padding: 24px 10px 14px;
+  }
+
+  .mapa-panel iframe {
+    height: 160px;
+  }
+
+  .mapa-acciones a,
+  .mapa-acciones button,
+  .btn-cta-primary,
+  .btn-cta-secondary {
+    width: 100%;
+    max-width: 320px;
+    text-align: center;
+  }
 }

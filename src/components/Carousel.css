@@ -2,8 +2,9 @@
 .carousel {
   position: relative;
   width: 100%;
+  max-width: 1100px;
   margin: 20px auto;
-  height: 300px;
+  height: clamp(420px, 62vh, 680px);
   border-radius: 18px;
   box-shadow: 0 18px 35px rgba(0, 0, 0, 0.18);
   background: #0f2017;
@@ -32,22 +33,26 @@
 
 .carousel img {
   width: 100%;
+  max-width: none;
   height: 100%;
   object-fit: cover;
+  object-position: center;
   display: block;
-  filter: saturate(1.08) contrast(1.03);
+  margin: 0;
+  background: #0f2017;
+  filter: saturate(1.03) contrast(1.01);
 }
 
 /* ========================= MEDIA QUERIES ========================= */
 @media (max-width: 768px) {
-  .slide img {
-    height: 350px;
+  .carousel {
+    height: clamp(320px, 52vh, 500px);
   }
 }
 
 @media (max-width: 480px) {
-  .slide img {
-    height: 250px;
+  .carousel {
+    height: clamp(260px, 45vh, 380px);
   }
 
 }

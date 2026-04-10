@@ -12,9 +12,18 @@ function Footer() {
       <div className="mapa-panel">
         <h3>Encuéntranos en Teatinos</h3>
         <p>Blvr. Louis Pasteur, 35, 29010 Málaga</p>
-        
-        <button className ="btnpanel" onClick={copyAddress}>Copiar dirección</button>
-        <a href="https://maps.google.com/..." target="_blank">Google Maps</a>
+
+        <div className="mapa-acciones">
+          <button className="map-btn" onClick={copyAddress}>Copiar dirección</button>
+          <a
+            className="map-link"
+            href="https://maps.google.com/?q=Blvr.+Louis+Pasteur,+35,+29010+Málaga"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Google Maps
+          </a>
+        </div>
         
         <iframe 
           src="https://www.google.com/maps/embed?..." 

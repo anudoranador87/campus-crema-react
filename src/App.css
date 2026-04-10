@@ -1,5 +1,11 @@
 :root {
   font-family: Arial, sans-serif;
+  --cc-cream: #f5f1e9;
+  --cc-cream-soft: #fdf7ec;
+  --cc-green: #2d5a3f;
+  --cc-green-soft: #3f6b4f;
+  --cc-gold: #c5a059;
+  --cc-brown: #b5541a;
 }
 
 * {
@@ -8,10 +14,16 @@
 
 body {
   margin: 0;
+  background:
+    radial-gradient(circle at 10% 0%, rgba(197, 160, 89, 0.14) 0%, transparent 35%),
+    radial-gradient(circle at 90% 100%, rgba(45, 90, 63, 0.14) 0%, transparent 35%),
+    var(--cc-cream);
+  color: #1f2e25;
 }
 
 .app {
   min-height: 100vh;
+  background: linear-gradient(180deg, var(--cc-cream-soft) 0%, var(--cc-cream) 40%, #efe8db 100%);
 }
 
 section {
@@ -21,6 +33,36 @@ section {
 .container {
   width: min(1000px, 92%);
   margin: 0 auto;
+}
+
+@media (max-width: 1024px) {
+  section {
+    padding: 1.8rem 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    font-size: 15px;
+  }
+
+  section {
+    padding: 1.5rem 0.9rem;
+  }
+
+  .container {
+    width: min(1000px, 94%);
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    font-size: 14px;
+  }
+
+  section {
+    padding: 1.2rem 0.75rem;
+  }
 }
 
 

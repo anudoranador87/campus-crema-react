@@ -1,0 +1,16 @@
+{
+  "projectId": "prj_ToAGqVKBHWcs3YmNGKoeeftfPyXA",
+  "orgId": "team_StQkN4p4OKokB9O92Ro5GRfO",
+  "projectName": "campus-crema-react",
+  "settings": {
+    "createdAt": 1775785084417,
+    "framework": "vite",
+    "devCommand": null,
+    "installCommand": null,
+    "buildCommand": null,
+    "outputDirectory": null,
+    "rootDirectory": null,
+    "directoryListing": false,
+    "nodeVersion": "24.x"
+  }
+}

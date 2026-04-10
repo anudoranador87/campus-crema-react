@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import './Navbar.css';
 
 function Navbar() {
@@ -27,10 +28,10 @@ function Navbar() {
 
       {/* Navegación - FUERA del logo-container */}
       <nav className={`nav ${isMenuOpen ? 'active' : ''}`} aria-label="Navegación principal">
-        <a href="#espacio" onClick={() => setIsMenuOpen(false)}>Inicio</a> 
-        <a href="carta.html" onClick={() => setIsMenuOpen(false)}>Carta</a>
-        <a href="nosotros.html" onClick={() => setIsMenuOpen(false)}>NOSOTROS</a>
-        <a href="#contacto" onClick={() => setIsMenuOpen(false)}>Contacto</a>
+        <Link to="/" onClick={() => setIsMenuOpen(false)}>Inicio</Link>
+        <a href="/#carta" onClick={() => setIsMenuOpen(false)}>Carta</a>
+        <Link to="/nosotros" onClick={() => setIsMenuOpen(false)}>NOSOTROS</Link>
+        <a href="/#contacto" onClick={() => setIsMenuOpen(false)}>Contacto</a>
       </nav>
 
       {/* Botón hamburguesa */}
