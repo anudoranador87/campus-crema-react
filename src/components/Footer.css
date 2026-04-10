@@ -1,0 +1,186 @@
+/* ========================= FOOTER ========================= */
+.main-footer {
+  background-color: #1a3d2b;
+  color: #FDF5E6;
+  padding: 40px 20px 20px;
+  text-align: center;
+  height: 500px;
+}
+
+.main-footer iframe {
+  width: 100%;
+  max-width: 800px;
+  height: 200px;
+  border: 0;
+  border-radius: 10px;
+  margin-bottom: 30px;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: center;
+  gap: 60px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.footer-content div {
+  text-align: left;
+}
+
+.footer-content h4 {
+  color: #C5A059;
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  border-bottom: 1px solid rgba(197,160,89,0.3);
+  padding-bottom: 6px;
+}
+
+.footer-content p {
+  font-size: 0.9rem;
+  color: rgba(253,245,230,0.75);
+  margin-bottom: 4px;
+}
+
+.footer-content a {
+  color: rgba(253,245,230,0.85);
+  text-decoration: none;
+}
+
+.footer-content a:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.mapa-panel {
+  max-width: 920px;
+  margin: 0 auto 26px;
+}
+
+.mapa-panel h3 {
+  margin: 0 0 8px;
+  color: #FDF5E6;
+}
+
+.mapa-panel p {
+  margin: 0 0 10px;
+  color: rgba(253,245,230,0.8);
+}
+
+.mapa-acciones {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.mapa-acciones a,
+.mapa-acciones button {
+  border: 1px solid rgba(253,245,230,0.55);
+  background: transparent;
+  color: #FDF5E6;
+  border-radius: 999px;
+  padding: 8px 12px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.mapa-acciones a:hover,
+.mapa-acciones button:hover {
+  background: #FDF5E6;
+  color: #1a3d2b;
+}
+
+#btnpanel {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  width: 42px;
+  height: 42px;
+  border: none;
+  border-radius: 50%;
+  background: #2D5A3F;
+  color: #fff;
+  font-size: 1.2rem;
+  cursor: pointer;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+  display: none;
+  z-index: 999;
+}
+
+#btn-top.visible {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer-divider {
+  width: 60px;
+  height: 1px;
+  background: rgba(197,160,89,0.4);
+  margin: 0 auto 16px;
+}
+
+.footer-copy {
+  font-size: 0.78rem;
+  color: rgba(253,245,230,0.4);
+  letter-spacing: 1px;
+}
+.cta-nosotros {
+  background-color: #2D5A3F;
+  color: #FDF5E6;
+  text-align: center;
+  padding: 50px 20px;
+}
+
+.cta-nosotros h2 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.cta-nosotros p {
+  margin-bottom: 25px;
+  font-size: 1.1rem;
+  opacity: 0.85;
+}
+
+.cta-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.btn-cta-primary {
+  background-color: #C5A059;
+  color: #FDF5E6;
+  padding: 12px 30px;
+  border-radius: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.btn-cta-primary:hover {
+  background-color: #FDF5E6;
+  color: #2D5A3F;
+}
+
+.btn-cta-secondary {
+  background-color: transparent;
+  color: #FDF5E6;
+  padding: 12px 30px;
+  border-radius: 30px;
+  border: 2px solid #FDF5E6;
+  font-weight: bold;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.btn-cta-secondary:hover {
+  background-color: #FDF5E6;
+  color: #2D5A3F;
+}
