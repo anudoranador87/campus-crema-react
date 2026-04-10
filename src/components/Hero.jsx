@@ -10,7 +10,6 @@ function Hero() {
       {/* Banner principal */}
       <section id="banner">
         <picture className="banner-picture">
-          <source srcSet="/banner-campus.avif" type="image/avif" />
           <source srcSet="/banner-campus.png" type="image/png" />
           <img className="banner-image" src="/banner-campus.png" alt="Banner de Campus & Crema" />
         </picture>
