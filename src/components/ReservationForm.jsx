@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './reservationForm.css';
+import './ReservationForm.css';
 
 function ReservationForm() {
   const today = new Date().toISOString().split('T')[0];

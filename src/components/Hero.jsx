@@ -10,8 +10,8 @@ function Hero() {
       {/* Banner principal */}
       <section id="banner">
         <picture className="banner-picture">
-          <source srcSet="/banner-campus.png" type="image/png" />
-          <img className="banner-image" src="/banner-campus.png" alt="Banner de Campus & Crema" />
+          <source srcSet="/assets/images/banner-campus.png" type="image/png" />
+          <img className="banner-image" src="/assets/images/banner-campus.png" alt="Banner de Campus & Crema" />
         </picture>
         <div className="banner-overlay">
           <div className="hero-content">

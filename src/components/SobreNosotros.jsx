@@ -9,7 +9,7 @@ function SobreNosotros() {
           <h1>De la biblioteca a la barra</h1>
           <p>Donde las ideas se tuestan y el talento se extrae gota a gota.</p>
         </div>
-        <img src="/4.png" alt="Cafe y libros" />
+        <img src="/assets/images/4.png" alt="Cafe y libros" />
       </section>
 
       <section className="laboratorio-sabor">
@@ -43,13 +43,13 @@ function SobreNosotros() {
       <section className="contenedor-cards">
         <article className="tarjeta-historia">
           <h2>Los Alquimistas</h2>
-          <img src="/1.png" alt="Barista principal" />
+          <img src="/assets/images/1.png" alt="Barista principal" />
           <h3>Nico - Head Barista</h3>
           <p>Capaz de hacer latte art mientras recita las leyes de la termodinamica.</p>
         </article>
         <article className="tarjeta-historia">
           <h2>La Ciencia del Sabor</h2>
-          <img src="/3.png" alt="Especialista en cafe" />
+          <img src="/assets/images/3.png" alt="Especialista en cafe" />
           <h3>Marta - Coffee Scientist</h3>
           <p>
             Tiene un termometro en el bolsillo y un cuaderno de catas en la mochila.
@@ -58,7 +58,7 @@ function SobreNosotros() {
         </article>
         <article className="tarjeta-historia">
           <h2>Gestion Creativa</h2>
-          <img src="/2.png" alt="Fundadora" />
+          <img src="/assets/images/2.png" alt="Fundadora" />
           <h3>Elena - Fundadora</h3>
           <p>
             La mente detras del concepto. Convirtio su obsesion por el cafe en un refugio
