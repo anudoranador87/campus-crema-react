@@ -1,0 +1,117 @@
+.horarios-section {
+  background: #F5F1E9;
+  padding: 4rem 2rem;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.horarios-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.horarios-eyebrow {
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #C5A059;
+  margin-bottom: 0.5rem;
+  margin-top: 0;
+}
+
+.horarios-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #2D5A3F;
+  margin: 0;
+}
+
+.horarios-botones {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 2.5rem;
+}
+
+.horarios-botones button {
+  background: transparent;
+  border: 1.5px solid rgba(45, 90, 63, 0.3);
+  border-radius: 999px;
+  padding: 0.45rem 1.2rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: #2D5A3F;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.horarios-botones button:hover {
+  border-color: #2D5A3F;
+  background: rgba(45, 90, 63, 0.06);
+}
+
+.horarios-botones button.activo {
+  background: #2D5A3F;
+  border-color: #2D5A3F;
+  color: #F5F1E9;
+}
+
+.horarios-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 12px;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.horario-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.2rem 1rem;
+  text-align: center;
+  border: 1px solid rgba(45, 90, 63, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.horario-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(45, 90, 63, 0.12);
+}
+
+.horario-card.weekend {
+  background: #2D5A3F;
+}
+
+.horario-card .dia {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #C5A059;
+  margin: 0 0 0.6rem 0;
+}
+
+.horario-card .horas {
+  font-size: 14px;
+  font-weight: 500;
+  color: #2D5A3F;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.horario-card.weekend .horas {
+  color: #F5F1E9;
+}
+
+.horario-divider {
+  width: 2px;
+  height: 10px;
+  background: rgba(45, 90, 63, 0.2);
+  margin: 4px auto;
+  border-radius: 2px;
+}
+
+.horario-card.weekend .horario-divider {
+  background: rgba(245, 241, 233, 0.3);
+}

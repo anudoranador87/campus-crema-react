@@ -303,3 +303,35 @@
     grid-template-columns: 1fr;
   }
 }
+
+.categorias {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap;
+}
+
+.categorias button {
+  background: transparent;
+  border: 1.5px solid rgba(45, 90, 63, 0.3);
+  border-radius: 999px;
+  padding: 0.45rem 1.3rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: #2d5a3f;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.categorias button:hover {
+  border-color: #2d5a3f;
+  background: rgba(45, 90, 63, 0.06);
+}
+
+.categorias button.activo {
+  background: #2d5a3f;
+  border-color: #2d5a3f;
+  color: #F5F1E9;
+}

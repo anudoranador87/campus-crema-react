@@ -2,26 +2,26 @@ import React, { useMemo, useState } from 'react';
 import './Menu.css';
 
 const items = [
-  { id: 'espresso', titulo: 'Espresso', desc: 'Café intenso y concentrado', precio: 2.5, img: '/ESPRESSO DOBLE.png' },
-  { id: 'flat-white', titulo: 'Flat White', desc: 'Espresso con leche vaporizada', precio: 3.5, img: '/FLAT WHITE.png' },
-  { id: 'croissant', titulo: 'Croissant', desc: 'Mantequilla francesa artesanal', precio: 2.8, img: '/Croissant.png' },
-  { id: 'cappuccino', titulo: 'Cappuccino', desc: 'Espresso con espuma cremosa', precio: 3.2, img: '/Capuccino.png' },
-  { id: 'latte', titulo: 'Latte', desc: 'Café suave con leche al vapor', precio: 3.4, img: '/Latte.png' },
-  { id: 'cortado', titulo: 'Cortado', desc: 'Espresso con un toque de leche', precio: 2.8, img: '/Cortado.png' },
-  { id: 'salmon-cream', titulo: 'Salmon cream', desc: 'Pan artesano con Salmon y queso crema', precio: 2.5, img: '/SALMON CREAM.png' },
-  { id: 'cookie', titulo: 'Cookie', desc: 'Chocolate negro con nueces', precio: 3.2, img: '/COOKIE LABORATORIO.png' },
-  { id: 'cheesecake', titulo: 'Cheesecake', desc: 'Tarta de queso estilo vasco', precio: 4, img: '/CHEESECAKE ARTESANA.png' },
-  { id: 'granola-bowl', titulo: 'Granola bowl', desc: 'Avena, frutas y miel', precio: 4.5, img: '/ENERGY BOWL.png' },
-  { id: 'tostada-aguacate', titulo: 'Tostada con aguacate', desc: 'Rodaja de pan cateto con aguacate', precio: 2.8, img: '/campus_crema_sourdough.png' },
-  { id: 'serrano-premium', titulo: 'Serrano Premium', desc: 'Pan con Jamon Serrano iberico', precio: 3.8, img: '/SERRANO PREMIUM.png' }
+  { id: 'espresso', titulo: 'Espresso', desc: 'Café intenso y concentrado', precio: 2.5, img: '/ESPRESSO DOBLE.png', categoria: 'cafe' },
+  { id: 'flat-white', titulo: 'Flat White', desc: 'Espresso con leche vaporizada', precio: 3.5, img: '/FLAT WHITE.png', categoria: 'cafe' },
+  { id: 'cappuccino', titulo: 'Cappuccino', desc: 'Espresso con espuma cremosa', precio: 3.2, img: '/Capuccino.png', categoria: 'cafe' },
+  { id: 'latte', titulo: 'Latte', desc: 'Café suave con leche al vapor', precio: 3.4, img: '/Latte.png', categoria: 'cafe' },
+  { id: 'cortado', titulo: 'Cortado', desc: 'Espresso con un toque de leche', precio: 2.8, img: '/Cortado.png', categoria: 'cafe' },
+  { id: 'salmon-cream', titulo: 'Salmon cream', desc: 'Pan artesano con Salmon y queso crema', precio: 2.5, img: '/SALMON CREAM.png', categoria: 'salado' },
+  { id: 'tostada-aguacate', titulo: 'Tostada con aguacate', desc: 'Rodaja de pan cateto con aguacate', precio: 2.8, img: '/campus_crema_sourdough.png', categoria: 'salado' },
+  { id: 'serrano-premium', titulo: 'Serrano Premium', desc: 'Pan con Jamon Serrano iberico', precio: 3.8, img: '/SERRANO PREMIUM.png', categoria: 'salado' },
+  { id: 'croissant', titulo: 'Croissant', desc: 'Mantequilla francesa artesanal', precio: 2.8, img: '/Croissant.png', categoria: 'dulce' },
+  { id: 'cookie', titulo: 'Cookie', desc: 'Chocolate negro con nueces', precio: 3.2, img: '/COOKIE LABORATORIO.png', categoria: 'dulce' },
+  { id: 'cheesecake', titulo: 'Cheesecake', desc: 'Tarta de queso estilo vasco', precio: 4, img: '/CHEESECAKE ARTESANA.png', categoria: 'dulce' },
+  { id: 'granola-bowl', titulo: 'Granola bowl', desc: 'Avena, frutas y miel', precio: 4.5, img: '/ENERGY BOWL.png', categoria: 'dulce' },
 ];
-
 const IVA_FIJO = 10;
 
 function Menu() {
   const [ticket, setTicket] = useState([]);
   const [historial, setHistorial] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
+  const [categoriaSeleccionada, setCategoriaSeleccionada] = useState('todos');
 
   function anadirAlTicket(plato) {
     setTicket((prev) => {
@@ -78,9 +78,23 @@ function Menu() {
   return (
     <section className="menu" id="carta">
       <h2>Nuestra Carta</h2>
-      
+  <div className="categorias">
+    <button className={categoriaSeleccionada === "todos" ? "activo" : ""} onClick={() => setCategoriaSeleccionada("todos")}>Todos</button>
+    <button className={categoriaSeleccionada === "cafe" ? "activo" : ""} onClick={() => setCategoriaSeleccionada("cafe")}>Cafes</button>
+    <button className={categoriaSeleccionada === "salado" ? "activo" : ""} onClick={() => setCategoriaSeleccionada("salado")}>Salados</button>
+    <button className={categoriaSeleccionada === "dulce" ? "activo" : ""} onClick={() => setCategoriaSeleccionada("dulce")}>Dulces</button>
+</div>
+
       <div className="menu-grid">
-        {items.map((item, index) => (
+{items
+    .filter((item) => {
+     if (categoriaSeleccionada === 'todos') return true;
+      return item.categoria === categoriaSeleccionada;
+      })
+
+
+
+    .map((item, index) => (
           <article key={index} className="menu-item">
             <img src={item.img} alt={item.titulo} />
             <div className="menu-item-info">
