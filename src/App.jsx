@@ -9,6 +9,8 @@ import Menu from './components/Menu.jsx';
 import SobreNosotros from './components/SobreNosotros.jsx';
 import Horarios from "./components/Horarios";
 
+
+
 function HomePage() {
   return (
     <>
@@ -17,6 +19,7 @@ function HomePage() {
       <Menu />
       <Horarios />
       <ReservationForm />
+    
       <Footer />
     </>
   );

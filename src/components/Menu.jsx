@@ -2,18 +2,18 @@ import React, { useMemo, useState } from 'react';
 import './Menu.css';
 
 const items = [
-  { id: 'espresso', titulo: 'Espresso', desc: 'Café intenso y concentrado', precio: 2.5, img: '/ESPRESSO DOBLE.png', categoria: 'cafe' },
-  { id: 'flat-white', titulo: 'Flat White', desc: 'Espresso con leche vaporizada', precio: 3.5, img: '/FLAT WHITE.png', categoria: 'cafe' },
-  { id: 'cappuccino', titulo: 'Cappuccino', desc: 'Espresso con espuma cremosa', precio: 3.2, img: '/Capuccino.png', categoria: 'cafe' },
-  { id: 'latte', titulo: 'Latte', desc: 'Café suave con leche al vapor', precio: 3.4, img: '/Latte.png', categoria: 'cafe' },
-  { id: 'cortado', titulo: 'Cortado', desc: 'Espresso con un toque de leche', precio: 2.8, img: '/Cortado.png', categoria: 'cafe' },
-  { id: 'salmon-cream', titulo: 'Salmon cream', desc: 'Pan artesano con Salmon y queso crema', precio: 2.5, img: '/SALMON CREAM.png', categoria: 'salado' },
-  { id: 'tostada-aguacate', titulo: 'Tostada con aguacate', desc: 'Rodaja de pan cateto con aguacate', precio: 2.8, img: '/campus_crema_sourdough.png', categoria: 'salado' },
-  { id: 'serrano-premium', titulo: 'Serrano Premium', desc: 'Pan con Jamon Serrano iberico', precio: 3.8, img: '/SERRANO PREMIUM.png', categoria: 'salado' },
-  { id: 'croissant', titulo: 'Croissant', desc: 'Mantequilla francesa artesanal', precio: 2.8, img: '/Croissant.png', categoria: 'dulce' },
-  { id: 'cookie', titulo: 'Cookie', desc: 'Chocolate negro con nueces', precio: 3.2, img: '/COOKIE LABORATORIO.png', categoria: 'dulce' },
-  { id: 'cheesecake', titulo: 'Cheesecake', desc: 'Tarta de queso estilo vasco', precio: 4, img: '/CHEESECAKE ARTESANA.png', categoria: 'dulce' },
-  { id: 'granola-bowl', titulo: 'Granola bowl', desc: 'Avena, frutas y miel', precio: 4.5, img: '/ENERGY BOWL.png', categoria: 'dulce' },
+  { id: 'espresso', titulo: 'Espresso', desc: 'Café intenso y concentrado', precio: 2.5, img: '/assets/images/ESPRESSO DOBLE.png', categoria: 'cafe' },
+  { id: 'flat-white', titulo: 'Flat White', desc: 'Espresso con leche vaporizada', precio: 3.5, img: '/assets/images/FLAT WHITE.png', categoria: 'cafe' },
+  { id: 'cappuccino', titulo: 'Cappuccino', desc: 'Espresso con espuma cremosa', precio: 3.2, img: '/assets/images/Capuccino.png', categoria: 'cafe' },
+  { id: 'latte', titulo: 'Latte', desc: 'Café suave con leche al vapor', precio: 3.4, img: '/assets/images/Latte.png', categoria: 'cafe' },
+  { id: 'cortado', titulo: 'Cortado', desc: 'Espresso con un toque de leche', precio: 2.8, img: '/assets/images/Cortado.png', categoria: 'cafe' },
+  { id: 'salmon-cream', titulo: 'Salmon cream', desc: 'Pan artesano con Salmon y queso crema', precio: 2.5, img: '/assets/images/SALMON CREAM.png', categoria: 'salado' },
+  { id: 'tostada-aguacate', titulo: 'Tostada con aguacate', desc: 'Rodaja de pan cateto con aguacate', precio: 2.8, img: '/assets/images/TOASTES SOURDOUGH.png', categoria: 'salado' },
+  { id: 'serrano-premium', titulo: 'Serrano Premium', desc: 'Pan con Jamon Serrano iberico', precio: 3.8, img: '/assets/images/serrano.png', categoria: 'salado' },
+  { id: 'croissant', titulo: 'Croissant', desc: 'Mantequilla francesa artesanal', precio: 2.8, img: '/assets/images/Croissant.png', categoria: 'dulce' },
+  { id: 'cookie', titulo: 'Cookie', desc: 'Chocolate negro con nueces', precio: 3.2, img: '/assets/images/COOKIE LABORATORIO.png', categoria: 'dulce' },
+  { id: 'cheesecake', titulo: 'Cheesecake', desc: 'Tarta de queso estilo vasco', precio: 4, img: '/assets/images/cheesecake.png', categoria: 'dulce' },
+  { id: 'granola-bowl', titulo: 'Granola bowl', desc: 'Avena, frutas y miel', precio: 4.5, img: '/assets/images/ENERGY BOWL.png', categoria: 'dulce' },
 ];
 const IVA_FIJO = 10;
 
