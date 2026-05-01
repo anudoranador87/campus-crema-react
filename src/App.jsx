@@ -8,7 +8,7 @@ import ReservationForm from './components/ReservationForm.jsx';
 import Menu from './components/Menu.jsx';
 import SobreNosotros from './components/SobreNosotros.jsx';
 import Horarios from "./components/Horarios";
-
+import TextComponent from "./components/TextComponent.jsx";
 
 
 function HomePage() {
@@ -19,7 +19,7 @@ function HomePage() {
       <Menu />
       <Horarios />
       <ReservationForm />
-    
+      <TextComponent />;
       <Footer />
     </>
   );
