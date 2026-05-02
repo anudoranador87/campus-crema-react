@@ -1,7 +1,8 @@
-import React, { useMemo, useState } from 'react';
-import './Menu.css';
 
-const items = [
+import './Menu.css';
+import { useReducer } from 'react';
+
+const items = [  //componente fijo, fuera del componente
   { id: 'espresso', titulo: 'Espresso', desc: 'Café intenso y concentrado', precio: 2.5, img: '/assets/images/ESPRESSO DOBLE.png', categoria: 'cafe' },
   { id: 'flat-white', titulo: 'Flat White', desc: 'Espresso con leche vaporizada', precio: 3.5, img: '/assets/images/FLAT WHITE.png', categoria: 'cafe' },
   { id: 'cappuccino', titulo: 'Cappuccino', desc: 'Espresso con espuma cremosa', precio: 3.2, img: '/assets/images/Capuccino.png', categoria: 'cafe' },
@@ -15,188 +16,140 @@ const items = [
   { id: 'cheesecake', titulo: 'Cheesecake', desc: 'Tarta de queso estilo vasco', precio: 4, img: '/assets/images/cheesecake.png', categoria: 'dulce' },
   { id: 'granola-bowl', titulo: 'Granola bowl', desc: 'Avena, frutas y miel', precio: 4.5, img: '/assets/images/ENERGY BOWL.png', categoria: 'dulce' },
 ];
-const IVA_FIJO = 10;
 
-function Menu() {
-  const [ticket, setTicket] = useState([]);
-  const [historial, setHistorial] = useState([]);
-  const [modalOpen, setModalOpen] = useState(false);
-  const [categoriaSeleccionada, setCategoriaSeleccionada] = useState('todos');
+ 
+const estadoInicial = {   // va fuera del componente
+  ticket: [],
+  categoria: "todos",
+  paso: 0,          // 0=carta, 1=resumen, 2=datos, 3=confirmación
+  tipoEntrega: null, // "recoger" o "domicilio"
+  formulario: {}
+}
+  const IVA_FIJO = 10; // componente fijo, fuera del componente
 
-  function anadirAlTicket(plato) {
-    setTicket((prev) => {
-      const next = [...prev];
-      const existe = next.find((item) => item.id === plato.id);
-      if (existe) {
-        existe.cantidad += 1;
-      } else {
-        next.push({ ...plato, cantidad: 1 });
-      }
-      return next;
-    });
-    setModalOpen(true);
-  }
+function Menu() {   //Componente principal
+  const [state, dispatch] = useReducer(reducer, estadoInicial)
 
-  function cambiarCantidad(id, delta) {
-    setTicket((prev) => {
-      const next = [...prev];
-      const resultado = next.find((item) => item.id === id);
-      if (!resultado) return prev;
-      resultado.cantidad += delta;
-      if (resultado.cantidad <= 0) {
-        const idx = next.findIndex((item) => item.id === id);
-        if (idx !== -1) next.splice(idx, 1);
-      }
-      return next;
-    });
-  }
-
-  const { subtotal, ivaEuros, total } = useMemo(() => {
-    const sub = ticket.reduce((acc, item) => acc + item.precio * item.cantidad, 0);
-    const iva = sub * (IVA_FIJO / 100);
-    return { subtotal: sub, ivaEuros: iva, total: sub + iva };
-  }, [ticket]);
-
-  function checkoutPedido() {
-    if (ticket.length === 0) return;
-    const idComanda = Date.now();
-    const hora = new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
-    const resumen = ticket.map((item) => `${item.cantidad}x ${item.titulo}`).join(', ');
-    setHistorial((prev) => [`#${idComanda} | ${hora} | CHECKOUT | ${resumen}`, ...prev]);
-    setTicket([]);
-  }
-
-  function pedirADomicilio() {
-    if (ticket.length === 0) return;
-    const idComanda = Date.now();
-    const hora = new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
-    const resumen = ticket.map((item) => `${item.cantidad}x ${item.titulo}`).join(', ');
-    setHistorial((prev) => [`#${idComanda} | ${hora} | DOMICILIO | ${resumen}`, ...prev]);
-    setTicket([]);
-  }
-
-  return (
-    <section className="menu" id="carta">
-      <h2>Nuestra Carta</h2>
-  <div className="categorias">
-    <button className={categoriaSeleccionada === "todos" ? "activo" : ""} onClick={() => setCategoriaSeleccionada("todos")}>Todos</button>
-    <button className={categoriaSeleccionada === "cafe" ? "activo" : ""} onClick={() => setCategoriaSeleccionada("cafe")}>Cafes</button>
-    <button className={categoriaSeleccionada === "salado" ? "activo" : ""} onClick={() => setCategoriaSeleccionada("salado")}>Salados</button>
-    <button className={categoriaSeleccionada === "dulce" ? "activo" : ""} onClick={() => setCategoriaSeleccionada("dulce")}>Dulces</button>
-</div>
-
-      <div className="menu-grid">
-{items
-    .filter((item) => {
-     if (categoriaSeleccionada === 'todos') return true;
-      return item.categoria === categoriaSeleccionada;
-      })
-
-
-
-    .map((item, index) => (
-          <article key={index} className="menu-item">
-            <img src={item.img} alt={item.titulo} />
-            <div className="menu-item-info">
-              <h3>{item.titulo}</h3>
-              <p>{item.desc}</p>
-              <span className="precio">{item.precio.toFixed(2)}€</span>
-              <button className="item-add-btn" type="button" onClick={() => anadirAlTicket(item)}>
-                Añadir
-              </button>
-            </div>
-          </article>
-        ))}
-      </div>
-
-      <div className="menu-order-container">
-        <button className="menu-order-btn" type="button" onClick={() => setModalOpen(true)}>
-          Añadir pedido
+  function renderPasos(){
+           switch(state.paso) {
+            case 0: 
+            return (
+  <div>
+    <button onClick={()=> dispatch({ type: "setCategoria", payload: "todos" })}>Todos</button>
+    <button onClick={()=> dispatch({ type: "setCategoria", payload: "cafe" })}>Café</button>
+    <button onClick={()=> dispatch({ type: "setCategoria", payload: "salado" })}>Salado</button>
+    <button onClick={()=> dispatch({ type: "setCategoria", payload: "dulce" })}>Dulce</button>
+    {items.filter(item => state.categoria === "todos" || item.categoria === state.categoria).map(item => (
+      <div key={item.id}>
+        <h3>{item.titulo}</h3>
+        <img src={item.img} alt={item.titulo} />
+        <p>{item.desc}</p>
+        <p>{item.precio}€</p>
+        <button onClick={() => dispatch({ type: "añadir", payload: item })}>
+          Añadir
         </button>
       </div>
+    ))}
+    <button onClick={() => dispatch({ type: "setPaso", payload: 1 })} disabled={state.ticket.length === 0}> // si esta vacio, no puedes avanzar
+      Ver Resumen
+    </button>
+  </div>
+)
 
-      {modalOpen && (
-        <div className="pedido-modal-backdrop" onClick={() => setModalOpen(false)}>
-          <div className="pedido-modal" onClick={(e) => e.stopPropagation()}>
-            <button className="pedido-close" type="button" onClick={() => setModalOpen(false)}>
-              ✕
-            </button>
-            <h3>Tu pedido</h3>
+            case 1: return <Resumen />
+            case 2: return <Formulario />
+            case 3: return <Confirmacion />
+  }
 
-            <div className="pedido-grid">
-              <div className="pedido-carta">
-                <h4>Agregar productos</h4>
-                <ul>
-                  {items.map((prod) => (
-                    <li key={`pedido-${prod.id}`}>
-                      <span>{prod.titulo}</span>
-                      <button type="button" onClick={() => anadirAlTicket(prod)}>+</button>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+  }
 
-              <div className="pedido-ticket">
-                <h4>Ticket</h4>
-                {ticket.length === 0 ? (
-                  <p className="ticket-vacio">Ticket vacío</p>
-                ) : (
-                  <ul>
-                    {ticket.map((item) => (
-                      <li key={`ticket-${item.id}`}>
-                        <span>{item.titulo}</span>
-                        <span>{item.cantidad}</span>
-                        <span>{item.precio.toFixed(2)}€</span>
-                        <button type="button" onClick={() => cambiarCantidad(item.id, -1)}>-</button>
-                        <button type="button" onClick={() => cambiarCantidad(item.id, 1)}>+</button>
-                      </li>
-                    ))}
-                  </ul>
-                )}
+  
+  return ( // mostrara los pasos de 0 al 3
+<div>
+  {renderPasos}
 
-                <div className="totales">
-                  <p>Subtotal: <strong>{subtotal.toFixed(2)}€</strong></p>
-                  <p>IVA ({IVA_FIJO}%): <strong>{ivaEuros.toFixed(2)}€</strong></p>
-                  <p>Total: <strong>{total.toFixed(2)}€</strong></p>
-                </div>
 
-              </div>
-            </div>
+</div>
 
-            {historial.length > 0 && (
-              <div className="historial">
-                <h4>Historial de comandas</h4>
-                <ul>
-                  {historial.slice(0, 5).map((linea) => (
-                    <li key={linea}>{linea}</li>
-                  ))}
-                </ul>
-              </div>
-            )}
+  )
 
-            <div className="pedido-modal-actions">
-              <button
-                className="btn-checkout"
-                type="button"
-                onClick={checkoutPedido}
-                disabled={ticket.length === 0}
-              >
-                Checkout
-              </button>
-              <button
-                className="btn-domicilio"
-                type="button"
-                onClick={pedirADomicilio}
-                disabled={ticket.length === 0}
-              >
-                Pedir a domicilio
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-    </section>
-  );
+
+
+
 }
 
 export default Menu;
+
+
+
+
+//la funcion reducer, fuera del componente, y tiene varios casos
+
+
+function reducer(state, action) {
+    switch(action.type) {
+    case "añadir":
+      
+        const existe = state.ticket.find(item => item.id === action.payload.id ) //buscamos si el item ya existe en el ticket, devuelve el item o undefined
+              //tenemos que poner una condicion
+          if (existe) { // si este existe, tenemos que devolver un nuevo array con la cantidad aumentada en 1, si no es el item que buscamos, lo dejamos igual
+            return {
+             ...state, // esto devuelve el estado actual, pero con el ticket modificado
+               ticket: state.ticket.map(item =>  // recorre el ticket, si el item es el que buscamos, devuelve una copia del item con la cantidad aumentada en 1, si no es el item que buscamos, lo dejamos igual
+               item.id === action.payload.id //
+                ? { ...item, cantidad: item.cantidad + 1 } // si el item es el que buscamos, devuelve una copia del item con la cantidad aumentada en 1
+               : item
+             )
+          }
+      } else {
+   // devuelvenuevo array, añadimos cantidad : 1, no habia ninguno.
+      return { ...state, ticket: [...state.ticket, { ...action.payload, cantidad: 1 }] } // esto devuelve el estado actual, pero con el ticket modificado, añadimos el nuevo item al ticket, con cantidad 1
+      }
+      
+
+
+
+
+    case "cambiarCantidad":
+      return {
+        ...state,
+        ticket: state.ticket.map(item => // muy parecido al caso anterior, pero cambiamos la cantidad a la que viene en el payload, no sumamos 1
+          item.id === action.payload.id
+            ? { ...item, cantidad: item.cantidad + action.payload.cambio } // ¿porque cambio? porque el payload tiene que decir si queremos sumar o restar, si queremos sumar 1, el cambio es +1, si queremos restar 1, el cambio es -1
+            : item
+        )
+           .filter(item => item.cantidad > 0)// si la cantidad es 0, no lo mostramos en el ticket, por eso filtramos los items que tienen cantidad mayor a 0
+      }
+   
+    case "setCategoria":
+      return{
+        ...state, categoria: action.payload } // payload es la categoria , segun la que elijamos  
+      
+    case "setPaso":
+      return {  
+      ...state, paso: action.payload }// igual que setCageroria, pero para el paso, segun el paso que elijamos, se muestra una cosa u otra en el componente principal
+    case "setTipoEntrega":
+     return{
+       ...state, tipoEntrega: action.payload    
+     }
+
+    case "setFormulario":
+      return{
+     ...state, formulario: { ...state.formulario, ...action.payload }  //?porque? , devuelve estado actual, formulario modificado, con los datos que vienen en el payload
+      }
+
+    case "confirmar":
+      return{
+        ...estadoInicial, // al confirmar, volvemos al estado inicial, vaciamos el ticket, reseteamos el formulario.
+         paso: 3  // esta sera la ultima pantalla, de confirmacion de todo OK
+
+      }
+    
+    default:
+      return state;
+  }
+
+
+
+
+}
