@@ -92,6 +92,11 @@ La versión HTML/CSS/JS vanilla sigue disponible como referencia:
 [Campus & Crema — Vanilla](https://github.com/anudoranador87)
 
 ---
+👨‍💻 Autor
 
-*Parte del reto #365DaysOfCode — aprendizaje autodidacta de desarrollo frontend.*  
-*José · Málaga · 2026*
+Jose María Aparicio
+Recepcionista de hotel en transición a frontend developer.
+42 días de código documentados en Dev Log 365.
+
+🌐 Portfolio → https://anudoranador87.github.io/JoseMaria-Frondtend-Portfolio/
+📓 Dev Log → https://anudoranador87.github.io/Mi-Camino-Web-365/
