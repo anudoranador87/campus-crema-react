@@ -6,15 +6,9 @@ function Carousel() {
   const [indice, setIndice] = useState(0);
   
   const imagenes = [
-    '/assets/images/campus_crema_espacio_1.png',
-    '/assets/images/campus_crema_espacio_2.png',
-
-    '/assets/images/FOTO1.jpg',
-    '/assets/images/FOTO2.jpg',
-    '/assets/images/FOTO3.jpg',
-    '/assets/images/FOTO4.jpg',
-    '/assets/images/FOTO5.jpg',
-    '/assets/images/FOTO6.jpg'   
+    '/assets/images/new_carousel_2.png',
+    '/assets/images/new_carousel_3.png',
+    '/assets/images/new_carousel_4.png'
   ];
 
   useEffect(() => {
