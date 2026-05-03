@@ -12,13 +12,24 @@ const items = [
   { id: 'cappuccino',       titulo: 'Cappuccino',            desc: 'Espresso con espuma cremosa',        precio: 3.2, img: '/assets/images/Capuccino.png',          categoria: 'cafe'   },
   { id: 'latte',            titulo: 'Latte',                 desc: 'Café suave con leche al vapor',      precio: 3.4, img: '/assets/images/Latte.png',              categoria: 'cafe'   },
   { id: 'cortado',          titulo: 'Cortado',               desc: 'Espresso con un toque de leche',     precio: 2.8, img: '/assets/images/Cortado.png',            categoria: 'cafe'   },
+  { id: 'iced-latte',       titulo: 'Iced Latte',            desc: 'Café frío con leche y hielo',        precio: 3.8, img: '/assets/images/iced_latte.png',         categoria: 'cafe'   },
+  { id: 'matcha-latte',     titulo: 'Matcha Latte',          desc: 'Té matcha con leche cremosa',        precio: 4.2, img: '/assets/images/matcha_latte.png',       categoria: 'cafe'   },
+  { id: 'chai-latte',       titulo: 'Chai Latte',            desc: 'Té especiado con leche vaporizada',  precio: 4.0, img: '/assets/images/chai_latte.png',         categoria: 'cafe'   },
+  
   { id: 'salmon-cream',     titulo: 'Salmon cream',          desc: 'Pan artesano con Salmon y queso',    precio: 2.5, img: '/assets/images/SALMON CREAM.png',       categoria: 'salado' },
   { id: 'tostada-aguacate', titulo: 'Tostada con aguacate',  desc: 'Rodaja de pan cateto con aguacate', precio: 2.8, img: '/assets/images/TOASTES SOURDOUGH.png',  categoria: 'salado' },
   { id: 'serrano-premium',  titulo: 'Serrano Premium',       desc: 'Pan con Jamon Serrano iberico',     precio: 3.8, img: '/assets/images/serrano.png',            categoria: 'salado' },
+  { id: 'bagel-pavo',       titulo: 'Bagel de Pavo',         desc: 'Bagel tostado con pavo y crema',     precio: 4.5, img: '/assets/images/bagel_pavo.png',         categoria: 'salado' },
+  { id: 'hummus-bowl',      titulo: 'Hummus Bowl',           desc: 'Hummus casero con crudités',         precio: 5.2, img: '/assets/images/hummus_bowl.png',        categoria: 'salado' },
+  { id: 'focaccia',         titulo: 'Focaccia',              desc: 'Focaccia de tomate y mozzarella',    precio: 4.8, img: '/assets/images/focaccia.png',           categoria: 'salado' },
+  
   { id: 'croissant',        titulo: 'Croissant',             desc: 'Mantequilla francesa artesanal',    precio: 2.8, img: '/assets/images/Croissant.png',          categoria: 'dulce'  },
   { id: 'cookie',           titulo: 'Cookie',                desc: 'Chocolate negro con nueces',        precio: 3.2, img: '/assets/images/COOKIE LABORATORIO.png', categoria: 'dulce'  },
   { id: 'cheesecake',       titulo: 'Cheesecake',            desc: 'Tarta de queso estilo vasco',       precio: 4.0, img: '/assets/images/cheesecake.png',         categoria: 'dulce'  },
   { id: 'granola-bowl',     titulo: 'Granola bowl',          desc: 'Avena, frutas y miel',              precio: 4.5, img: '/assets/images/ENERGY BOWL.png',        categoria: 'dulce'  },
+  { id: 'acai-bowl',        titulo: 'Açai Bowl',             desc: 'Açai con frutas y granola',          precio: 6.5, img: '/assets/images/acai_bowl.png',          categoria: 'dulce'  },
+  { id: 'banana-bread',     titulo: 'Banana Bread',          desc: 'Bizcocho de plátano tostado',        precio: 3.5, img: '/assets/images/banana_bread.png',       categoria: 'dulce'  },
+  { id: 'muffin',           titulo: 'Muffin Arándanos',      desc: 'Muffin tierno con arándanos',        precio: 3.0, img: '/assets/images/muffin_blueberries.png', categoria: 'dulce'  },
 ];
 
 const IVA_FIJO = 10; // constante fija, fuera del componente
