@@ -1,7 +1,8 @@
 /* ========================= FORMULARIO ========================= */
 .form-card {
     width: 100%;
-    max-width: 500px;
+    max-width: 600px;
+    margin: 0 auto;
     background: #fff;
     padding: 30px;
     border-radius: 16px;
