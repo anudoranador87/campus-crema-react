@@ -1,5 +1,5 @@
 import './Menu.css';
-import { useReducer } from 'react';
+import { useEffect, useReducer, useRef } from 'react';
 import FormularioDomicilio from './FormularioDomicilio';
 import FormularioRecoger from './FormularioRecoger';
 import PagoSimulado from './PagoSimulado';
@@ -33,11 +33,12 @@ const items = [
 const IVA_FIJO = 10;
 
 const estadoInicial = {
-  ticket:      [],
-  categoria:   "todos",
-  paso:        0,
-  tipoEntrega: null,
-  formulario:  {},
+  ticket:       [],
+  categoria:    'todos',
+  paso:         0,
+  tipoEntrega:  null,
+  formulario:   {},
+  ultimoPedido: null,
 };
 
 function reducer(state, action) {
@@ -75,24 +76,87 @@ function reducer(state, action) {
       return { ...state, categoria: action.payload };
     case "setPaso":
       return { ...state, paso: action.payload };
-    case "setTipoEntrega":
-      return { ...state, tipoEntrega: action.payload };
+    case 'setTipoEntrega':
+      if (action.payload === null) {
+        return { ...state, tipoEntrega: null, formulario: {} };
+      }
+      return { ...state, tipoEntrega: action.payload, formulario: {} };
     case "setFormulario":
       return { ...state, formulario: { ...state.formulario, ...action.payload } };
-    case "confirmar":
-      return { ...estadoInicial, paso: 3 };
+    case 'confirmar': {
+      const subtotalConfirm = state.ticket.reduce((acc, item) => acc + item.precio * item.cantidad, 0);
+      const ivaConfirm = subtotalConfirm * (IVA_FIJO / 100);
+      const totalConfirm = subtotalConfirm + ivaConfirm;
+      return {
+        ...estadoInicial,
+        paso: 3,
+        ultimoPedido: {
+          ticket: [...state.ticket],
+          tipoEntrega: state.tipoEntrega,
+          formulario: { ...state.formulario },
+          subtotal: subtotalConfirm,
+          iva: ivaConfirm,
+          total: totalConfirm,
+        },
+      };
+    }
     default:
       return state;
   }
 }
 
+const PASOS_CHECKOUT = [
+  { id: 1, label: 'Entrega' },
+  { id: 2, label: 'Pago' },
+  { id: 3, label: 'Confirmación' },
+];
+
+function CheckoutStepper({ pasoActual }) {
+  return (
+    <ol className="checkout-stepper" aria-label="Progreso del pedido">
+      {PASOS_CHECKOUT.map((p, i) => {
+        const hecho = pasoActual > p.id;
+        const activo = pasoActual === p.id;
+        return (
+          <li
+            key={p.id}
+            className={[
+              'checkout-stepper__step',
+              hecho ? 'checkout-stepper__step--done' : '',
+              activo ? 'checkout-stepper__step--active' : '',
+            ].filter(Boolean).join(' ')}
+          >
+            <span className="checkout-stepper__num" aria-hidden>{hecho ? '✓' : i + 1}</span>
+            <span className="checkout-stepper__label">{p.label}</span>
+          </li>
+        );
+      })}
+    </ol>
+  );
+}
+
 function Menu() {
   const [state, dispatch] = useReducer(reducer, estadoInicial);
-  const subtotal = state.ticket.reduce((acc, item) => acc + item.precio * item.cantidad, 0);
-  const iva      = subtotal * (IVA_FIJO / 100);
-  const total    = subtotal + iva;
+  const sectionRef = useRef(null);
 
-  const resumenProps = { ticket: state.ticket, subtotal, iva, total, dispatch };
+  const subtotal = state.ticket.reduce((acc, item) => acc + item.precio * item.cantidad, 0);
+  const iva = subtotal * (IVA_FIJO / 100);
+  const total = subtotal + iva;
+
+  const resumenProps = {
+    ticket: state.ticket,
+    subtotal,
+    iva,
+    total,
+    dispatch,
+    allowCollapse: state.paso === 0,
+  };
+
+  const cartCount = state.ticket.reduce((acc, item) => acc + item.cantidad, 0);
+
+  useEffect(() => {
+    sectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, [state.paso]);
 
   function renderPasos() {
     switch (state.paso) {
@@ -100,7 +164,7 @@ function Menu() {
       // ── PASO 0: CARTA ──────────────────────────────────────────
       case 0:
         return (
-          <section className="menu" id="carta">
+          <section className="menu" id="carta" ref={sectionRef}>
             <h2>Nuestra Carta</h2>
 
             <div className="categorias">
@@ -138,21 +202,25 @@ function Menu() {
             </div>
 
             {state.ticket.length > 0 && (
-              <ResumenTicket {...resumenProps} mostrarBotones={true} />
+              <ResumenTicket {...resumenProps} mostrarBotones={false} />
             )}
 
             <div className="menu-order-container">
-              <div style={{ position: "relative", display: "inline-block" }}>
+              <div className="menu-cart-btn-wrap">
                 <button
+                  type="button"
                   className="menu-order-btn"
-                  onClick={() => dispatch({ type: "setPaso", payload: 1 })}
+                  onClick={() => dispatch({ type: 'setPaso', payload: 1 })}
                   disabled={state.ticket.length === 0}
+                  aria-label={cartCount ? `Ver carrito, ${cartCount} artículos` : 'Ver carrito'}
                 >
-                  Ver Carrito
+                  Ver carrito y tramitar pedido
                 </button>
-                <span style={{ position: "absolute", top: "-8px", right: "-8px", background: "#b5541a", color: "#fff", borderRadius: "999px", padding: "2px 7px", fontSize: "12px", fontWeight: "700" }}>
-                  {state.ticket.reduce((acc, item) => acc + item.cantidad, 0)}
-                </span>
+                {cartCount > 0 && (
+                  <span className="menu-cart-badge" aria-hidden>
+                    {cartCount > 99 ? '99+' : cartCount}
+                  </span>
+                )}
               </div>
             </div>
           </section>
@@ -161,56 +229,90 @@ function Menu() {
       // ── PASO 1: TIPO DE ENTREGA + FORMULARIO ───────────────────
       case 1:
         return (
-          <section className="menu">
+          <section className="menu checkout-section" ref={sectionRef}>
             <h2>Tipo de entrega</h2>
-            <div style={{ display: "flex", gap: "2rem", padding: "2rem", alignItems: "flex-start" }}>
-              <div style={{ flex: 1 }}>
+            <CheckoutStepper pasoActual={1} />
+            <div className="checkout-layout">
+              <div className="checkout-layout__col checkout-layout__col--ticket">
                 <ResumenTicket {...resumenProps} mostrarBotones={false} />
               </div>
-              <div style={{ flex: 1 }}>
-                {state.tipoEntrega === null
-                  ? (
-                    <div className="pedido-modal-actions">
-                      <button className="btn-domicilio" onClick={() => dispatch({ type: "setTipoEntrega", payload: "domicilio" })}>A domicilio</button>
-                      <button className="btn-checkout"  onClick={() => dispatch({ type: "setTipoEntrega", payload: "recoger" })}>Recogida en tienda</button>
+              <div className="checkout-layout__col">
+                {state.tipoEntrega === null ? (
+                  <div className="entrega-opciones">
+                    <p className="entrega-opciones__hint">Elige cómo quieres recibir tu pedido.</p>
+                    <div className="pedido-modal-actions pedido-modal-actions--stack">
+                      <button
+                        type="button"
+                        className="btn-domicilio"
+                        onClick={() => dispatch({ type: 'setTipoEntrega', payload: 'domicilio' })}
+                      >
+                        A domicilio
+                      </button>
+                      <button
+                        type="button"
+                        className="btn-checkout"
+                        onClick={() => dispatch({ type: 'setTipoEntrega', payload: 'recoger' })}
+                      >
+                        Recogida en tienda
+                      </button>
                     </div>
-                  )
-                  : state.tipoEntrega === "domicilio"
-                    ? <FormularioDomicilio dispatch={dispatch} />
-                    : <FormularioRecoger dispatch={dispatch} />
-                }
+                  </div>
+                ) : state.tipoEntrega === 'domicilio' ? (
+                  <FormularioDomicilio dispatch={dispatch} formulario={state.formulario} />
+                ) : (
+                  <FormularioRecoger dispatch={dispatch} formulario={state.formulario} />
+                )}
               </div>
             </div>
-            <button className="btn-domicilio" onClick={() => dispatch({ type: "setPaso", payload: 0 })}>
-  ← Volver a la carta
-</button>
+            <div className="checkout-nav">
+              <button
+                type="button"
+                className="btn-domicilio btn-domicilio--ghost"
+                onClick={() =>
+                  state.tipoEntrega === null
+                    ? dispatch({ type: 'setPaso', payload: 0 })
+                    : dispatch({ type: 'setTipoEntrega', payload: null })
+                }
+              >
+                {state.tipoEntrega === null ? '← Volver a la carta' : '← Cambiar tipo de entrega'}
+              </button>
+            </div>
           </section>
         );
 
       // ── PASO 2: PAGO SIMULADO ──────────────────────────────────
       case 2:
         return (
-          <section className="menu">
+          <section className="menu checkout-section" ref={sectionRef}>
             <h2>Pago</h2>
-            <div style={{ display: "flex", gap: "2rem", padding: "2rem", alignItems: "flex-start" }}>
-              <div style={{ flex: 1 }}>
+            <CheckoutStepper pasoActual={2} />
+            <p className="checkout-disclaimer">Pago simulado para demostración. No se cargará ningún import real.</p>
+            <div className="checkout-layout">
+              <div className="checkout-layout__col checkout-layout__col--ticket">
                 <ResumenTicket {...resumenProps} mostrarBotones={false} />
               </div>
-              <div style={{ flex: 1, display: "flex", justifyContent: "center" }}>
-                <PagoSimulado dispatch={dispatch} />
+              <div className="checkout-layout__col checkout-layout__col--pay">
+                <PagoSimulado dispatch={dispatch} formulario={state.formulario} />
               </div>
             </div>
-            <button className="btn-domicilio" onClick={() => dispatch({ type: "setPaso", payload: 1 })}>
-  ← Volver
-</button>
+            <div className="checkout-nav">
+              <button
+                type="button"
+                className="btn-domicilio btn-domicilio--ghost"
+                onClick={() => dispatch({ type: 'setPaso', payload: 1 })}
+              >
+                ← Volver a entrega
+              </button>
+            </div>
           </section>
         );
 
       // ── PASO 3: CONFIRMACIÓN ───────────────────────────────────
       case 3:
         return (
-          <div style={{ display: "flex", justifyContent: "center", padding: "2rem" }}>
-            <PantallaConfirmacion dispatch={dispatch} />
+          <div className="checkout-confirm-wrap" ref={sectionRef}>
+            <CheckoutStepper pasoActual={3} />
+            <PantallaConfirmacion dispatch={dispatch} ultimoPedido={state.ultimoPedido} />
           </div>
         );
 

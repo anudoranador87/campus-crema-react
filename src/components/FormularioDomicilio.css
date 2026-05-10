@@ -16,6 +16,24 @@
     color: #2D5A3F;
     margin-bottom: 20px;
   }
+
+  .form-label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #2d5a3f;
+    margin-bottom: 0.35rem;
+  }
+
+  .form-error {
+    background: #fdecea;
+    color: #a32121;
+    padding: 0.65rem 0.85rem;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    margin-bottom: 0.75rem;
+    border: 1px solid #f5c2be;
+  }
   
   /* Inputs */
   .form-input,
