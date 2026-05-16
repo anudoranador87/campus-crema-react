@@ -5,29 +5,30 @@ import FormularioRecoger from './FormularioRecoger';
 import PagoSimulado from './PagoSimulado';
 import PantallaConfirmacion from './PantallaConfirmacion';
 import ResumenTicket from './ResumenTicket';
+import TextExpander from './TextExpander';
 
 const items = [
-  { id: 'espresso',         titulo: 'Espresso',              desc: 'Café intenso y concentrado',         precio: 2.5, img: '/assets/images/ESPRESSO DOBLE.png',     categoria: 'cafe'   },
-  { id: 'flat-white',       titulo: 'Flat White',            desc: 'Espresso con leche vaporizada',      precio: 3.5, img: '/assets/images/FLAT WHITE.png',         categoria: 'cafe'   },
-  { id: 'cappuccino',       titulo: 'Cappuccino',            desc: 'Espresso con espuma cremosa',        precio: 3.2, img: '/assets/images/Capuccino.png',          categoria: 'cafe'   },
-  { id: 'latte',            titulo: 'Latte',                 desc: 'Café suave con leche al vapor',      precio: 3.4, img: '/assets/images/Latte.png',              categoria: 'cafe'   },
-  { id: 'cortado',          titulo: 'Cortado',               desc: 'Espresso con un toque de leche',     precio: 2.8, img: '/assets/images/Cortado.png',            categoria: 'cafe'   },
-  { id: 'iced-latte',       titulo: 'Iced Latte',            desc: 'Café frío con leche y hielo',        precio: 3.8, img: '/assets/images/iced_latte.png',         categoria: 'cafe'   },
-  { id: 'matcha-latte',     titulo: 'Matcha Latte',          desc: 'Té matcha con leche cremosa',        precio: 4.2, img: '/assets/images/matcha_latte.png',       categoria: 'cafe'   },
-  { id: 'chai-latte',       titulo: 'Chai Latte',            desc: 'Té especiado con leche vaporizada',  precio: 4.0, img: '/assets/images/chai_latte.png',         categoria: 'cafe'   },
-  { id: 'salmon-cream',     titulo: 'Salmon cream',          desc: 'Pan artesano con Salmon y queso',    precio: 2.5, img: '/assets/images/SALMON CREAM.png',       categoria: 'salado' },
-  { id: 'tostada-aguacate', titulo: 'Tostada con aguacate',  desc: 'Rodaja de pan cateto con aguacate', precio: 2.8, img: '/assets/images/TOASTES SOURDOUGH.png',  categoria: 'salado' },
-  { id: 'serrano-premium',  titulo: 'Serrano Premium',       desc: 'Pan con Jamon Serrano iberico',     precio: 3.8, img: '/assets/images/serrano.png',            categoria: 'salado' },
-  { id: 'bagel-pavo',       titulo: 'Bagel de Pavo',         desc: 'Bagel tostado con pavo y crema',     precio: 4.5, img: '/assets/images/bagel_pavo.png',         categoria: 'salado' },
-  { id: 'hummus-bowl',      titulo: 'Hummus Bowl',           desc: 'Hummus casero con crudités',         precio: 5.2, img: '/assets/images/hummus_bowl.png',        categoria: 'salado' },
-  { id: 'focaccia',         titulo: 'Focaccia',              desc: 'Focaccia de tomate y mozzarella',    precio: 4.8, img: '/assets/images/focaccia.png',           categoria: 'salado' },
-  { id: 'croissant',        titulo: 'Croissant',             desc: 'Mantequilla francesa artesanal',    precio: 2.8, img: '/assets/images/Croissant.png',          categoria: 'dulce'  },
-  { id: 'cookie',           titulo: 'Cookie',                desc: 'Chocolate negro con nueces',        precio: 3.2, img: '/assets/images/COOKIE LABORATORIO.png', categoria: 'dulce'  },
-  { id: 'cheesecake',       titulo: 'Cheesecake',            desc: 'Tarta de queso estilo vasco',       precio: 4.0, img: '/assets/images/cheesecake.png',         categoria: 'dulce'  },
-  { id: 'granola-bowl',     titulo: 'Granola bowl',          desc: 'Avena, frutas y miel',              precio: 4.5, img: '/assets/images/ENERGY BOWL.png',        categoria: 'dulce'  },
-  { id: 'acai-bowl',        titulo: 'Açai Bowl',             desc: 'Açai con frutas y granola',          precio: 6.5, img: '/assets/images/acai_bowl.png',          categoria: 'dulce'  },
-  { id: 'banana-bread',     titulo: 'Banana Bread',          desc: 'Bizcocho de plátano tostado',        precio: 3.5, img: '/assets/images/banana_bread.png',       categoria: 'dulce'  },
-  { id: 'muffin',           titulo: 'Muffin Arándanos',      desc: 'Muffin tierno con arándanos',        precio: 3.0, img: '/assets/images/muffin_blueberries.png', categoria: 'dulce'  },
+  { id: 'espresso',         titulo: 'Espresso',             desc: 'Café intenso y concentrado, extraído a alta presión durante 25 segundos. Origen etíope de tueste oscuro con notas de chocolate negro, frutos secos y un regusto largo y persistente.',                                                                          precio: 2.5, img: '/assets/images/ESPRESSO DOBLE.png',     categoria: 'cafe'   },
+  { id: 'flat-white',       titulo: 'Flat White',           desc: 'Doble espresso cubierto con leche vaporizada de textura sedosa y microespuma fina. Más intenso que un latte, perfecto para quienes buscan el equilibrio entre café y leche.',                                                                                     precio: 3.5, img: '/assets/images/FLAT WHITE.png',         categoria: 'cafe'   },
+  { id: 'cappuccino',       titulo: 'Cappuccino',           desc: 'Espresso clásico con partes iguales de leche vaporizada y espuma cremosa. Elaborado con leche entera para conseguir esa textura aterciopelada característica.',                                                                                                    precio: 3.2, img: '/assets/images/Capuccino.png',          categoria: 'cafe'   },
+  { id: 'latte',            titulo: 'Latte',                desc: 'Café suave con una gran proporción de leche al vapor y una fina capa de microespuma. Ideal para empezar el día con calma, con notas dulces y un perfil muy equilibrado.',                                                                                         precio: 3.4, img: '/assets/images/Latte.png',              categoria: 'cafe'   },
+  { id: 'cortado',          titulo: 'Cortado',              desc: 'Espresso corto equilibrado con un pequeño toque de leche vaporizada que suaviza la acidez sin perder la intensidad del café. El favorito de los puristas.',                                                                                                       precio: 2.8, img: '/assets/images/Cortado.png',            categoria: 'cafe'   },
+  { id: 'iced-latte',       titulo: 'Iced Latte',           desc: 'Doble espresso vertido sobre hielo con leche fría. Refrescante y equilibrado, perfecto para los días de calor en Málaga. Se sirve en vaso alto con pajita.',                                                                                                     precio: 3.8, img: '/assets/images/iced_latte.png',         categoria: 'cafe'   },
+  { id: 'matcha-latte',     titulo: 'Matcha Latte',         desc: 'Té matcha ceremonial japonés de primera calidad batido con leche cremosa vaporizada. Sabor terroso, ligeramente dulce y con un color verde vibrante. Sin cafeína añadida.',                                                                                      precio: 4.2, img: '/assets/images/matcha_latte.png',       categoria: 'cafe'   },
+  { id: 'chai-latte',       titulo: 'Chai Latte',           desc: 'Mezcla aromática de especias — canela, cardamomo, jengibre y clavo — infusionada con té negro y leche vaporizada. Cálido, especiado y reconfortante en cualquier momento del día.',                                                                              precio: 4.0, img: '/assets/images/chai_latte.png',         categoria: 'cafe'   },
+  { id: 'salmon-cream',     titulo: 'Salmon cream',         desc: 'Pan artesano de masa madre tostado con queso crema, salmón ahumado noruego, alcaparras y eneldo fresco. Un clásico que nunca falla para el desayuno o el brunch del fin de semana.',                                                                             precio: 2.5, img: '/assets/images/SALMON CREAM.png',       categoria: 'salado' },
+  { id: 'tostada-aguacate', titulo: 'Tostada con aguacate', desc: 'Rodaja generosa de pan cateto tostado con aguacate maduro aplastado, aceite de oliva virgen extra, sal en escamas y un toque de limón. Simple, fresco y lleno de energía.',                                                                                      precio: 2.8, img: '/assets/images/TOASTES SOURDOUGH.png',  categoria: 'salado' },
+  { id: 'serrano-premium',  titulo: 'Serrano Premium',      desc: 'Pan de masa madre con jamón serrano ibérico de bellota loncheado al momento, tomate natural rallado y un hilo de aceite de oliva virgen extra de Jaén. Sabor auténtico del sur.',                                                                               precio: 3.8, img: '/assets/images/serrano.png',            categoria: 'salado' },
+  { id: 'bagel-pavo',       titulo: 'Bagel de Pavo',        desc: 'Bagel tostado con pavo ahumado, queso crema de hierbas, lechuga, tomate y mostaza antigua. Contundente y equilibrado, ideal para un almuerzo ligero sin renunciar al sabor.',                                                                                    precio: 4.5, img: '/assets/images/bagel_pavo.png',         categoria: 'salado' },
+  { id: 'hummus-bowl',      titulo: 'Hummus Bowl',          desc: 'Hummus casero de garbanzos con tahini, limón y comino, acompañado de crudités de temporada, pimentón ahumado y pan de pita tostado. Fresco, nutritivo y completamente vegano.',                                                                                  precio: 5.2, img: '/assets/images/hummus_bowl.png',        categoria: 'salado' },
+  { id: 'focaccia',         titulo: 'Focaccia',             desc: 'Focaccia artesana de tomate cherry, mozzarella fresca y albahaca. Horneada cada mañana en el local con masa de fermentación lenta de 24 horas. Crujiente por fuera y esponjosa por dentro.',                                                                    precio: 4.8, img: '/assets/images/focaccia.png',           categoria: 'salado' },
+  { id: 'croissant',        titulo: 'Croissant',            desc: 'Croissant de mantequilla francesa elaborado con técnica de hojaldrado tradicional. Crujiente por fuera, tierno y laminado por dentro. Se hornea fresco cada mañana desde las 7h.',                                                                              precio: 2.8, img: '/assets/images/Croissant.png',          categoria: 'dulce'  },
+  { id: 'cookie',           titulo: 'Cookie',               desc: 'Cookie artesana de chocolate negro 70% con nueces tostadas y un toque de sal marina. Crujiente en los bordes y con el centro ligeramente tierno. Receta propia de Campus & Crema.',                                                                             precio: 3.2, img: '/assets/images/COOKIE LABORATORIO.png', categoria: 'dulce'  },
+  { id: 'cheesecake',       titulo: 'Cheesecake',           desc: 'Tarta de queso estilo vasco con base cremosa y exterior caramelizado. Elaborada con queso Philadelphia y nata fresca, sin base de galleta. Textura que se deshace en la boca.',                                                                                  precio: 4.0, img: '/assets/images/cheesecake.png',         categoria: 'dulce'  },
+  { id: 'granola-bowl',     titulo: 'Granola bowl',         desc: 'Avena tostada con miel, frutas frescas de temporada, semillas de chía y yogur griego cremoso. Un desayuno completo y nutritivo que te da energía para toda la mañana.',                                                                                         precio: 4.5, img: '/assets/images/ENERGY BOWL.png',        categoria: 'dulce'  },
+  { id: 'acai-bowl',        titulo: 'Açai Bowl',            desc: 'Base de açai orgánico congelado con leche de coco, cubierto de granola crujiente, plátano, fresas, arándanos y un hilo de miel. Antioxidante, energético y visualmente espectacular.',                                                                          precio: 6.5, img: '/assets/images/acai_bowl.png',          categoria: 'dulce'  },
+  { id: 'banana-bread',     titulo: 'Banana Bread',         desc: 'Bizcocho húmedo de plátano maduro tostado al momento, con nueces pecanas y canela. Receta casera sin conservantes. Se sirve templado con un toque de mantequilla si lo deseas.',                                                                                 precio: 3.5, img: '/assets/images/banana_bread.png',       categoria: 'dulce'  },
+  { id: 'muffin',           titulo: 'Muffin Arándanos',     desc: 'Muffin tierno y esponjoso repleto de arándanos frescos con un toque de vainilla natural. Horneado diariamente en el local. La merienda perfecta acompañado de un café.',                                                                                        precio: 3.0, img: '/assets/images/muffin_blueberries.png', categoria: 'dulce'  },
 ];
 
 const IVA_FIJO = 10;
@@ -183,11 +184,16 @@ function Menu() {
               {items
                 .filter(item => state.categoria === "todos" || item.categoria === state.categoria)
                 .map(item => (
+                  
                   <article key={item.id} className="menu-item">
                     <img src={item.img} alt={item.titulo} />
                     <div className="menu-item-info">
                       <h3>{item.titulo}</h3>
-                      <p>{item.desc}</p>
+                      <TextExpander collapsedNumWords={8}>
+                              {item.desc}
+                              ;
+                        </TextExpander>
+
                       <span className="precio">{item.precio.toFixed(2)}€</span>
                       <button
                         className="item-add-btn"
