@@ -1,5 +1,6 @@
 import './Menu.css';
-import { useEffect, useReducer, useRef } from 'react';
+import { useEffect, useRef } from 'react';
+import { useCart } from '../context/CartContext.jsx';
 import FormularioDomicilio from './FormularioDomicilio';
 import FormularioRecoger from './FormularioRecoger';
 import PagoSimulado from './PagoSimulado';
@@ -31,80 +32,7 @@ const items = [
   { id: 'muffin',           titulo: 'Muffin Arándanos',     desc: 'Muffin tierno y esponjoso repleto de arándanos frescos con un toque de vainilla natural. Horneado diariamente en el local. La merienda perfecta acompañado de un café.',                                                                                        precio: 3.0, img: '/assets/images/muffin_blueberries.png', categoria: 'dulce'  },
 ];
 
-const IVA_FIJO = 10;
 
-const estadoInicial = {
-  ticket:       [],
-  categoria:    'todos',
-  paso:         0,
-  tipoEntrega:  null,
-  formulario:   {},
-  ultimoPedido: null,
-};
-
-function reducer(state, action) {
-  switch (action.type) {
-    case "añadir": {
-      const existe = state.ticket.find(item => item.id === action.payload.id);
-      if (existe) {
-        return {
-          ...state,
-          ticket: state.ticket.map(item =>
-            item.id === action.payload.id
-              ? { ...item, cantidad: item.cantidad + 1 }
-              : item
-          ),
-        };
-      } else {
-        return {
-          ...state,
-          ticket: [...state.ticket, { ...action.payload, cantidad: 1 }],
-        };
-      }
-    }
-    case "cambiarCantidad":
-      return {
-        ...state,
-        ticket: state.ticket
-          .map(item =>
-            item.id === action.payload.id
-              ? { ...item, cantidad: item.cantidad + action.payload.cambio }
-              : item
-          )
-          .filter(item => item.cantidad > 0),
-      };
-    case "setCategoria":
-      return { ...state, categoria: action.payload };
-    case "setPaso":
-      return { ...state, paso: action.payload };
-    case 'setTipoEntrega':
-      if (action.payload === null) {
-        return { ...state, tipoEntrega: null, formulario: {} };
-      }
-      return { ...state, tipoEntrega: action.payload, formulario: {} };
-    case "setFormulario":
-      return { ...state, formulario: { ...state.formulario, ...action.payload } };
-    case 'confirmar': {
-      const subtotalConfirm = state.ticket.reduce((acc, item) => acc + item.precio * item.cantidad, 0);
-      const ivaConfirm = subtotalConfirm * (IVA_FIJO / 100);
-      const totalConfirm = subtotalConfirm + ivaConfirm;
-      return {
-        ...estadoInicial,
-        paso: 3,
-        ultimoPedido: {
-          ticket: [...state.ticket],
-          tipoEntrega: state.tipoEntrega,
-          formulario: { ...state.formulario },
-          subtotal: subtotalConfirm,
-          iva: ivaConfirm,
-          total: totalConfirm,
-        },
-      };
-    }
-    default:
-      return state;
-  }
-}
 
 const PASOS_CHECKOUT = [
   { id: 1, label: 'Entrega' },
@@ -137,12 +65,8 @@ function CheckoutStepper({ pasoActual }) {
 }
 
 function Menu() {
-  const [state, dispatch] = useReducer(reducer, estadoInicial);
+  const { state, dispatch, subtotal, iva, total, cartCount } = useCart();
   const sectionRef = useRef(null);
-
-  const subtotal = state.ticket.reduce((acc, item) => acc + item.precio * item.cantidad, 0);
-  const iva = subtotal * (IVA_FIJO / 100);
-  const total = subtotal + iva;
 
   const resumenProps = {
     ticket: state.ticket,
@@ -152,8 +76,6 @@ function Menu() {
     dispatch,
     allowCollapse: state.paso === 0,
   };
-
-  const cartCount = state.ticket.reduce((acc, item) => acc + item.cantidad, 0);
 
   useEffect(() => {
     sectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });

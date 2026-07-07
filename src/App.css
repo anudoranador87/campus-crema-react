@@ -6,6 +6,25 @@
   --cc-green-soft: #3f6b4f;
   --cc-gold: #c5a059;
   --cc-brown: #b5541a;
+  --cc-text: #1f2e25;
+  --cc-text-muted: #5f5f5f;
+  --cc-card-bg: #ffffff;
+  --cc-card-bg-alt: #fffdf8;
+  --cc-border: #e2e8f0;
+}
+
+:root.dark {
+  --cc-cream: #0c110d;
+  --cc-cream-soft: #121914;
+  --cc-green: #3a6b4d;
+  --cc-green-soft: #4d7c5e;
+  --cc-gold: #d4b470;
+  --cc-brown: #d36e33;
+  --cc-text: #f5f1e9;
+  --cc-text-muted: #a0aec0;
+  --cc-card-bg: #17221b;
+  --cc-card-bg-alt: #1b2620;
+  --cc-border: #2d3748;
 }
 
 * {
@@ -15,15 +34,17 @@
 body {
   margin: 0;
   background:
-    radial-gradient(circle at 10% 0%, rgba(197, 160, 89, 0.14) 0%, transparent 35%),
-    radial-gradient(circle at 90% 100%, rgba(45, 90, 63, 0.14) 0%, transparent 35%),
+    radial-gradient(circle at 10% 0%, rgba(197, 160, 89, 0.1) 0%, transparent 35%),
+    radial-gradient(circle at 90% 100%, rgba(45, 90, 63, 0.1) 0%, transparent 35%),
     var(--cc-cream);
-  color: #1f2e25;
+  color: var(--cc-text);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .app {
   min-height: 100vh;
-  background: linear-gradient(180deg, var(--cc-cream-soft) 0%, var(--cc-cream) 40%, #efe8db 100%);
+  background: linear-gradient(180deg, var(--cc-cream-soft) 0%, var(--cc-cream) 40%, var(--cc-cream) 100%);
+  transition: background 0.3s ease;
 }
 
 section {
@@ -65,4 +86,83 @@ section {
   }
 }
 
+/* Modo Oscuro Overrides Genéricos */
+.dark .menu,
+.dark .horarios-section,
+.dark .faq,
+.dark .reserva-container,
+.dark .nosotros-container {
+  background: transparent !important;
+}
 
+.dark .menu-item,
+.dark .horario-card,
+.dark .resumen-ticket,
+.dark .checkout-layout__col,
+.dark .checkout-confirm-wrap,
+.dark .sobre-nosotros-card,
+.dark .faq-item {
+  background: var(--cc-card-bg-alt) !important;
+  color: var(--cc-text) !important;
+  border-color: var(--cc-border) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+}
+
+.dark .menu-item-info h3,
+.dark .horarios-title,
+.dark .faq-pregunta,
+.dark .resumen-ticket h3,
+.dark .resumen-ticket h4,
+.dark .checkout-section h2,
+.dark .sobre-nosotros-card h3 {
+  color: var(--cc-text) !important;
+}
+
+.dark .faq-pregunta {
+  background: transparent !important;
+}
+
+.dark .faq-respuesta,
+.dark .menu-item-info p,
+.dark .sobre-nosotros-card p {
+  color: var(--cc-text-muted) !important;
+}
+
+.dark .precio {
+  color: var(--cc-gold) !important;
+}
+
+.dark .checkout-stepper__num {
+  background-color: var(--cc-border) !important;
+  color: var(--cc-text) !important;
+}
+
+.dark .checkout-stepper__step--active .checkout-stepper__num {
+  background-color: var(--cc-green) !important;
+  color: #fff !important;
+}
+
+.dark .checkout-stepper__step--done .checkout-stepper__num {
+  background-color: var(--cc-brown) !important;
+  color: #fff !important;
+}
+
+.dark input,
+.dark select,
+.dark textarea {
+  background-color: var(--cc-cream-soft) !important;
+  color: var(--cc-text) !important;
+  border: 1px solid var(--cc-border) !important;
+}
+
+.dark input:focus,
+.dark select:focus,
+.dark textarea:focus {
+  border-color: var(--cc-green) !important;
+  outline: none !important;
+}
+
+.dark .reservation-form {
+  background-color: var(--cc-card-bg) !important;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4) !important;
+}

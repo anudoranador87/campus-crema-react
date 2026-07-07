@@ -1,15 +1,17 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar.jsx';
 import Hero from './components/Hero.jsx';
 import Carousel from './components/Carousel.jsx';
 import Footer from './components/Footer.jsx';
-import ReservationForm from './components/ReservationForm.jsx';
 import Menu from './components/Menu.jsx';
-import SobreNosotros from './components/SobreNosotros.jsx';
-import Horarios from "./components/Horarios";
-import TextComponent from "./components/TextComponent.jsx";
+import LoadingSpinner from './components/LoadingSpinner.jsx';
 
+// Carga diferida de componentes bajo la línea de flotación y páginas secundarias
+const Horarios = lazy(() => import('./components/Horarios'));
+const ReservationForm = lazy(() => import('./components/ReservationForm.jsx'));
+const TextComponent = lazy(() => import('./components/TextComponent.jsx'));
+const SobreNosotros = lazy(() => import('./components/SobreNosotros.jsx'));
 
 function HomePage() {
   return (
@@ -17,9 +19,11 @@ function HomePage() {
       <Hero />
       <Carousel />
       <Menu />
-      <Horarios />
-      <ReservationForm />
-      <TextComponent />;
+      <Suspense fallback={<LoadingSpinner />}>
+        <Horarios />
+        <ReservationForm />
+        <TextComponent />
+      </Suspense>
       <Footer />
     </>
   );
@@ -27,9 +31,9 @@ function HomePage() {
 
 function NosotrosPage() {
   return (
-    <>
+    <Suspense fallback={<LoadingSpinner />}>
       <SobreNosotros />
-    </>
+    </Suspense>
   );
 }
 

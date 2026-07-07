@@ -134,8 +134,131 @@
     padding: 12px;
   }
 
- .navbar .hamburger {
+  .navbar .hamburger {
   display: block;
   margin-right: auto;
 }
 }
+
+/* ================= ACTIONS & THEME ================= */
+.navbar-actions {
+  position: absolute;
+  right: 40px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  z-index: 10;
+}
+
+.theme-toggle-btn {
+  background: transparent;
+  border: 2px solid #C5A059;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+.theme-toggle-btn:hover {
+  transform: scale(1.1);
+  background-color: rgba(197, 160, 89, 0.1);
+}
+
+.navbar-cart-btn {
+  background: #2D5A3F;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.2rem;
+  position: relative;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.navbar-cart-btn:hover {
+  transform: scale(1.1);
+  background-color: #3f6b4f;
+}
+
+.navbar-cart-badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background-color: #b5541a;
+  color: white;
+  border-radius: 50%;
+  min-width: 18px;
+  height: 18px;
+  font-size: 0.7rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px;
+  border: 1.5px solid white;
+}
+
+/* Modo oscuro específico de Navbar */
+.dark .navbar {
+  background-color: #121914;
+  border-bottom-color: #24352a;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+}
+
+.dark .navbar .titulo h1 {
+  color: var(--cc-gold);
+}
+
+.dark .navbar .titulo h2 {
+  color: var(--cc-text-muted);
+}
+
+.dark .navbar .nav {
+  background: rgba(23, 34, 27, 0.95);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.3);
+}
+
+.dark .navbar .nav a {
+  background-color: #1a2720;
+  color: var(--cc-text);
+  border-color: var(--cc-gold);
+}
+
+.dark .navbar .nav a:hover {
+  background-color: var(--cc-gold);
+  color: #121914;
+}
+
+.dark .navbar .hamburger {
+  color: var(--cc-gold);
+}
+
+@media (max-width: 768px) {
+  .navbar-actions {
+    position: static;
+    transform: none;
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    order: 2;
+  }
+  
+  .navbar .hamburger {
+    order: 1;
+    margin-right: 0;
+  }
+}

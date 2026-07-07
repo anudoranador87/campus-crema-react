@@ -16,31 +16,43 @@ const[state,  dispatch] = useReducer(reducer, estadoInicial)  //estado inicial s
 
 
 
-return (
-  <section className="faq">
-    <h2>Preguntas frecuentes</h2>
-    <div className="faq-lista">
-      {faqs.map((faq) => (
-        <div key={faq.id} className="faq-item">
-          <button
-            className="faq-pregunta"
-            onClick={() =>
-              state.abierto === faq.id
-                ? dispatch({ type: "cerrado" })
-                : dispatch({ type: "abierto", payload: faq.id })
-            }
-          >
-            {faq.pregunta}
-            <span className={`faq-icono ${state.abierto === faq.id ? "abierto" : ""}`}>+</span>
-          </button>
-          {state.abierto === faq.id && (
-            <p className="faq-respuesta">{faq.respuesta}</p>
-          )}
-        </div>
-      ))}
-    </div>
-  </section>
-);
+  return (
+    <section className="faq">
+      <h2>Preguntas frecuentes</h2>
+      <div className="faq-lista">
+        {faqs.map((faq) => {
+          const isOpen = state.abierto === faq.id;
+          return (
+            <div key={faq.id} className="faq-item">
+              <button
+                className="faq-pregunta"
+                onClick={() =>
+                  isOpen
+                    ? dispatch({ type: "cerrado" })
+                    : dispatch({ type: "abierto", payload: faq.id })
+                }
+                aria-expanded={isOpen}
+                aria-controls={`faq-answer-${faq.id}`}
+              >
+                {faq.pregunta}
+                <span className={`faq-icono ${isOpen ? "abierto" : ""}`}>+</span>
+              </button>
+              {isOpen && (
+                <p 
+                  id={`faq-answer-${faq.id}`} 
+                  className="faq-respuesta" 
+                  role="region"
+                  aria-label={faq.pregunta}
+                >
+                  {faq.respuesta}
+                </p>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </section>
+  );
 }
 
 //escribo la funcion completa
