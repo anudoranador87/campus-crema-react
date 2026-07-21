@@ -1,0 +1,114 @@
+.toast-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 380px;
+  width: calc(100vw - 48px);
+}
+
+.toast-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255, 253, 248, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(232, 223, 207, 0.8);
+  border-radius: 12px;
+  padding: 14px 16px;
+  box-shadow: 0 10px 30px rgba(28, 51, 38, 0.15);
+  color: var(--cc-text);
+  animation: toast-slide-in 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  position: relative;
+  overflow: hidden;
+}
+
+.toast-card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+}
+
+.toast-card--success::before {
+  background: var(--cc-green);
+}
+
+.toast-card--error::before {
+  background: var(--cc-brown);
+}
+
+.toast-card--info::before {
+  background: var(--cc-gold);
+}
+
+.toast-icon {
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+.toast-message {
+  font-size: 0.92rem;
+  font-weight: 500;
+  line-height: 1.4;
+  flex-grow: 1;
+  padding-right: 12px;
+}
+
+.toast-close-btn {
+  background: transparent;
+  border: none;
+  color: var(--cc-text-muted);
+  cursor: pointer;
+  font-size: 0.85rem;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s, transform 0.2s;
+  border-radius: 4px;
+}
+
+.toast-close-btn:hover {
+  color: var(--cc-text);
+  background: rgba(0, 0, 0, 0.05);
+}
+
+/* Dark mode support */
+.dark .toast-card {
+  background: rgba(23, 34, 27, 0.85);
+  border-color: rgba(45, 55, 72, 0.8);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.dark .toast-close-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+@keyframes toast-slide-in {
+  from {
+    transform: translateY(24px) scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+/* Responsividad para pantallas pequeñas */
+@media (max-width: 480px) {
+  .toast-container {
+    bottom: 16px;
+    right: 16px;
+    left: 16px;
+    width: auto;
+    max-width: none;
+  }
+}

@@ -1,0 +1,31 @@
+/* ============================================================
+   FormularioRecoger.css — Estilos propios del formulario de recogida
+   Hereda variables y base de la tipografía global (App.css)
+   ============================================================ */
+
+/* Reutiliza los estilos base del formulario de domicilio */
+/* para no duplicar código, importa el archivo compartido */
+
+/* Anulaciones específicas de "Recogida en tienda" */
+.form-card .form-title--recoger {
+  color: var(--cc-brown, #b5541a);
+}
+
+/* Input de hora: normalizar apariencia entre navegadores */
+input[type="time"].form-input {
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+/* Dark mode para inputs de hora */
+.dark input[type="time"].form-input {
+  color-scheme: dark;
+}
+
+/* Hint de horario disponible bajo el input de hora */
+.form-time-hint {
+  font-size: 0.78rem;
+  color: var(--cc-text-muted);
+  margin-top: 0.3rem;
+  display: block;
+}

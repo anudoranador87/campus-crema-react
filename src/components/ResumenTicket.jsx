@@ -1,16 +1,50 @@
 import { useState } from 'react';
+import { useCart } from '../context/CartContext.jsx';
 
 export default function ResumenTicket({
-  ticket,
-  subtotal,
-  iva,
-  total,
-  dispatch,
   mostrarBotones,
   allowCollapse = false,
 }) {
-  const IVA_FIJO = 10;
+  const {
+    state,
+    dispatch,
+    subtotal,
+    descuentoImporte,
+    iva,
+    total,
+    addToast,
+    IVA_FIJO,
+  } = useCart();
   const [visible, setVisible] = useState(true);
+  const [couponCode, setCouponCode] = useState('');
+  const [couponError, setCouponError] = useState('');
+
+  const handleApplyCoupon = (e) => {
+    e.preventDefault();
+    const cleanCode = couponCode.trim().toUpperCase();
+    if (!cleanCode) return;
+
+    let pct = 0;
+    if (cleanCode === 'CAMPUS10') pct = 10;
+    else if (cleanCode === 'COFFEELOVER') pct = 20;
+    else if (cleanCode === 'PRIMERCAFE') pct = 15;
+
+    if (pct > 0) {
+      dispatch({ type: 'aplicarDescuento', payload: { code: cleanCode, porcentaje: pct } });
+      addToast(`¡Cupón ${cleanCode} (-${pct}%) aplicado! 🎫`, 'success');
+      setCouponCode('');
+      setCouponError('');
+    } else {
+      setCouponError('Código no válido');
+      addToast('El cupón ingresado no es válido ❌', 'error');
+    }
+  };
+
+  const handleRemoveCoupon = () => {
+    const oldCode = state.descuentoCode;
+    dispatch({ type: 'quitarDescuento' });
+    addToast(`Cupón ${oldCode} eliminado`, 'info');
+  };
 
   if (allowCollapse && !visible) {
     return (
@@ -40,11 +74,11 @@ export default function ResumenTicket({
               ✕
             </button>
           )}
-          {ticket.length === 0 ? (
+          {state.ticket.length === 0 ? (
             <p className="ticket-vacio">No hay productos en el carrito.</p>
           ) : (
             <ul>
-              {ticket.map((item) => {
+              {state.ticket.map((item) => {
                 const linea = item.precio * item.cantidad;
                 return (
                   <li key={item.id}>
@@ -53,9 +87,12 @@ export default function ResumenTicket({
                     <button
                       type="button"
                       aria-label={`Quitar uno de ${item.titulo}`}
-                      onClick={() =>
-                        dispatch({ type: 'cambiarCantidad', payload: { id: item.id, cambio: -1 } })
-                      }
+                      onClick={() => {
+                        dispatch({ type: 'cambiarCantidad', payload: { id: item.id, cambio: -1 } });
+                        if (item.cantidad === 1) {
+                          addToast(`Eliminado ${item.titulo} del carrito`, 'info');
+                        }
+                      }}
                     >
                       −
                     </button>
@@ -75,10 +112,46 @@ export default function ResumenTicket({
               })}
             </ul>
           )}
+
+          {state.ticket.length > 0 && (
+            <div className="coupon-section">
+              {!state.descuentoCode ? (
+                <form onSubmit={handleApplyCoupon} className="coupon-form">
+                  <input
+                    type="text"
+                    placeholder="Código de descuento (ej: CAMPUS10)"
+                    value={couponCode}
+                    onChange={(e) => {
+                      setCouponCode(e.target.value);
+                      setCouponError('');
+                    }}
+                    className="coupon-input"
+                  />
+                  <button type="submit" className="coupon-btn">
+                    Aplicar
+                  </button>
+                  {couponError && <p className="coupon-error-msg">{couponError}</p>}
+                </form>
+              ) : (
+                <div className="coupon-active-badge">
+                  <span>🎟️ Cupón activo: <strong>{state.descuentoCode}</strong> (-{state.descuentoPorcentaje}%)</span>
+                  <button type="button" onClick={handleRemoveCoupon} className="btn-remove-coupon" title="Eliminar cupón">
+                    Eliminar
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
+
           <div className="totales">
             <p>
               Subtotal: <strong>{subtotal.toFixed(2)}€</strong>
             </p>
+            {state.descuentoPorcentaje > 0 && (
+              <p className="descuento-line">
+                Descuento: <strong className="descuento-value">-{descuentoImporte.toFixed(2)}€</strong>
+              </p>
+            )}
             <p>
               IVA ({IVA_FIJO}%): <strong>{iva.toFixed(2)}€</strong>
             </p>
@@ -87,7 +160,7 @@ export default function ResumenTicket({
             </p>
           </div>
         </div>
-        {mostrarBotones && ticket.length > 0 && (
+        {mostrarBotones && state.ticket.length > 0 && (
           <div className="pedido-modal-actions pedido-modal-actions--single">
             <button
               type="button"

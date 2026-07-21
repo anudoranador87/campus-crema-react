@@ -1,5 +1,5 @@
 :root {
-  font-family: Arial, sans-serif;
+  font-family: 'DM Sans', Arial, sans-serif;
   --cc-cream: #f5f1e9;
   --cc-cream-soft: #fdf7ec;
   --cc-green: #2d5a3f;
@@ -45,6 +45,70 @@ body {
   min-height: 100vh;
   background: linear-gradient(180deg, var(--cc-cream-soft) 0%, var(--cc-cream) 40%, var(--cc-cream) 100%);
   transition: background 0.3s ease;
+}
+
+/* ── Tipografía para títulos destacados ─────────────────────── */
+h1, h2 {
+  font-family: 'Playfair Display', 'DM Sans', serif;
+}
+
+/* ── Animación de entrada para secciones del checkout ───────── */
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.checkout-section,
+.checkout-confirm-wrap {
+  animation: fadeSlideUp 0.38s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ── Animación pop para badge del carrito ───────────────────── */
+@keyframes badgePop {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.55); }
+  70%  { transform: scale(0.88); }
+  100% { transform: scale(1); }
+}
+
+.menu-cart-badge--pop,
+.navbar-cart-badge--pop {
+  animation: badgePop 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ── Badges de alérgenos / dieta ────────────────────────────── */
+.badge-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin: 0.3rem 0 0.5rem;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: rgba(45, 90, 63, 0.08);
+  border: 1px solid rgba(45, 90, 63, 0.18);
+  color: var(--cc-green);
+  letter-spacing: 0.2px;
+  white-space: nowrap;
+}
+
+.dark .badge {
+  background: rgba(61, 107, 78, 0.18);
+  border-color: rgba(61, 107, 78, 0.35);
+  color: var(--cc-gold);
 }
 
 section {

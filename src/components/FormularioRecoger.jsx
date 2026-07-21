@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import './FormularioDomicilio.css';
+import './FormularioRecoger.css';
 
 export default function FormularioRecoger({ dispatch, formulario = {} }) {
   const [error, setError] = useState('');
@@ -69,8 +70,12 @@ export default function FormularioRecoger({ dispatch, formulario = {} }) {
           }
           type="time"
           name="horaRecogida"
+          min="10:00"
+          max="22:00"
           required
         />
+        <span className="form-time-hint">Horario de recogida: L–V 10:00–21:00 · S–D 11:00–22:00</span>
+
 
         <button type="submit" className="btn-checkout form-btn">
           Continuar al pago

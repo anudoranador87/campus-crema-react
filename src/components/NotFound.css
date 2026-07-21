@@ -1,0 +1,106 @@
+/* ============================================================
+   NotFound.css  —  Página 404 de Campus & Crema
+   ============================================================ */
+
+.not-found {
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1.5rem;
+  text-align: center;
+}
+
+.not-found__code {
+  font-size: clamp(5rem, 18vw, 10rem);
+  font-weight: 900;
+  line-height: 1;
+  background: linear-gradient(135deg, var(--cc-green) 0%, var(--cc-gold) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 0 0 0.5rem;
+  animation: nf-float 3s ease-in-out infinite;
+}
+
+@keyframes nf-float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-12px); }
+}
+
+.not-found__icon {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+  animation: nf-spin-once 0.8s ease-out;
+}
+
+@keyframes nf-spin-once {
+  from { transform: rotate(-20deg) scale(0.6); opacity: 0; }
+  to   { transform: rotate(0deg)  scale(1);   opacity: 1; }
+}
+
+.not-found__title {
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  color: var(--cc-green);
+  margin: 0 0 0.75rem;
+}
+
+.not-found__desc {
+  font-size: 1rem;
+  color: var(--cc-text-muted);
+  max-width: 400px;
+  margin: 0 auto 2rem;
+  line-height: 1.6;
+}
+
+.not-found__actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.not-found__btn-primary {
+  display: inline-block;
+  padding: 0.85rem 2rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--cc-green) 0%, var(--cc-green-soft) 100%);
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-decoration: none;
+  letter-spacing: 0.3px;
+  box-shadow: 0 8px 20px rgba(45, 90, 63, 0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.not-found__btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(45, 90, 63, 0.4);
+}
+
+.not-found__btn-secondary {
+  display: inline-block;
+  padding: 0.85rem 2rem;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--cc-brown);
+  border: 2px solid var(--cc-brown);
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-decoration: none;
+  letter-spacing: 0.3px;
+  transition: all 0.2s ease;
+}
+
+.not-found__btn-secondary:hover {
+  background: var(--cc-brown);
+  color: #fff;
+  transform: translateY(-3px);
+}
+
+/* Dark mode */
+.dark .not-found__title {
+  color: var(--cc-gold);
+}
