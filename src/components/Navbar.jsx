@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext.jsx';
-import { useCart } from '../context/CartContext.jsx';
+import { useCart } from '../hooks/useCart';
 import './Navbar.css';
 
 function Navbar() {
@@ -20,7 +20,6 @@ function Navbar() {
 
   return (
     <header className="navbar">
-      {/* Logo y título - SIEMPRE visible */}
       <div className="brand">
         <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
           <path d="M100 10 L177.94 55 V145 L100 190 L22.06 145 V55 Z" fill="#2d5a3f" />
@@ -35,7 +34,6 @@ function Navbar() {
         </div>
       </div>
 
-      {/* Navegación - FUERA del logo-container */}
       <nav id="main-nav" className={`nav ${isMenuOpen ? 'active' : ''}`} aria-label="Navegación principal">
         <Link to="/" onClick={() => { setIsMenuOpen(false); dispatch({ type: 'setPaso', payload: 0 }); }}>Inicio</Link>
         <a href="/#carta" onClick={() => { setIsMenuOpen(false); dispatch({ type: 'setPaso', payload: 0 }); }}>Carta</a>
@@ -43,18 +41,17 @@ function Navbar() {
         <a href="/#contacto" onClick={() => setIsMenuOpen(false)}>Contacto</a>
       </nav>
 
-      {/* Acciones de la barra de navegación (Modo oscuro y carrito) */}
       <div className="navbar-actions">
-        <button 
-          onClick={toggleTheme} 
-          className="theme-toggle-btn" 
+        <button
+          onClick={toggleTheme}
+          className="theme-toggle-btn"
           aria-label={`Cambiar a modo ${theme === 'light' ? 'oscuro' : 'claro'}`}
         >
           {theme === 'light' ? '🌙' : '☀️'}
         </button>
 
-        <a 
-          href="/#carta" 
+        <a
+          href="/#carta"
           onClick={handleCartClick}
           className="navbar-cart-btn"
           aria-label={`Ver carrito, ${cartCount} artículos`}
@@ -64,10 +61,9 @@ function Navbar() {
         </a>
       </div>
 
-      {/* Botón hamburguesa */}
-      <button 
-        className="hamburger" 
-        onClick={toggleMenu} 
+      <button
+        className="hamburger"
+        onClick={toggleMenu}
         aria-label="Toggle menu"
         aria-expanded={isMenuOpen}
         aria-controls="main-nav"
