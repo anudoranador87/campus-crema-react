@@ -43,7 +43,7 @@ function CheckoutStepper({ pasoActual }) {
 }
 
 function Menu() {
-  const { state, dispatch, subtotal, iva, total, cartCount, addToast } = useCart();
+  const { state, dispatch, subtotal, iva, total, cartCount, addToast, confirmOrder } = useCart();
   const sectionRef = useRef(null);
 
   const [searchQuery, setSearchQuery] = useState('');
@@ -86,7 +86,6 @@ function Menu() {
 
   function renderPasos() {
     switch (state.paso) {
-
       // ── PASO 0: CARTA ──────────────────────────────────────────
       case 0:
         return (
@@ -294,7 +293,11 @@ function Menu() {
                 <ResumenTicket {...resumenProps} mostrarBotones={false} />
               </div>
               <div className="checkout-layout__col checkout-layout__col--pay">
-                <PagoSimulado dispatch={dispatch} formulario={state.formulario} />
+                <PagoSimulado
+                  dispatch={dispatch}
+                  confirmOrder={confirmOrder}
+                  formulario={state.formulario}
+                />
               </div>
             </div>
             <div className="checkout-nav">
