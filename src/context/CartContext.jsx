@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useReducer, useState, useEffect, useCallback } from 'react';
+import React, { createContext, useReducer, useState, useEffect, useCallback } from 'react';
 import {
   cartReducer,
   createInitialCartState,
@@ -8,7 +8,7 @@ import { calculateCartTotals, calculateCartCount } from '../utils/cartCalculatio
 import { loadCart, saveCart } from '../utils/storage';
 import { confirmOrder as persistOrder } from '../services/orderService';
 
-const CartContext = createContext();
+export const CartContext = createContext();
 
 export function CartProvider({ children }) {
   const [state, dispatch] = useReducer(
@@ -80,14 +80,4 @@ export function CartProvider({ children }) {
       {children}
     </CartContext.Provider>
   );
-}
-
-export function useCart() {
-  const context = useContext(CartContext);
-
-  if (context === undefined) {
-    throw new Error('useCart debe usarse dentro de un CartProvider');
-  }
-
-  return context;
 }
