@@ -1,5 +1,5 @@
 import React from 'react';
-import { useCart } from '../context/CartContext.jsx';
+import { useCart } from '../hooks/useCart';
 import './Toast.css';
 
 export default function ToastContainer() {
