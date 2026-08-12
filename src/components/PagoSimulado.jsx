@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './Menu.css';
 
-export default function PagoSimulado({ dispatch, formulario = {} }) {
+export default function PagoSimulado({ dispatch, confirmOrder, formulario = {} }) {
   const [error, setError] = useState('');
 
   function confirmarPago(e) {
@@ -10,12 +10,14 @@ export default function PagoSimulado({ dispatch, formulario = {} }) {
     const titular = (formulario.titularTarjeta || '').trim();
     const cad = (formulario.caducidad || '').trim();
     const cvv = (formulario.cvv || '').trim();
+
     if (num.length < 12 || !titular || !cad || cvv.length < 3) {
       setError('Introduce datos de tarjeta válidos (demo: número, titular, MM/AA y CVV).');
       return;
     }
+
     setError('');
-    dispatch({ type: 'confirmar' });
+    confirmOrder();
   }
 
   return (
