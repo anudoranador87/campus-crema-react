@@ -1,6 +1,6 @@
 import './Menu.css';
 import { useEffect, useRef, useState } from 'react';
-import { useCart } from '../context/CartContext.jsx';
+import { useCart } from '../hooks/useCart';
 import FormularioDomicilio from './FormularioDomicilio';
 import FormularioRecoger from './FormularioRecoger';
 import PagoSimulado from './PagoSimulado';
@@ -50,7 +50,6 @@ function Menu() {
   const [sortBy, setSortBy] = useState('default');
   const [badgePop, setBadgePop] = useState(false);
 
-  // Dispara animación pop en el badge al añadir productos
   function handleAddItem(item) {
     dispatch({ type: 'añadir', payload: item });
     addToast(`¡Añadido ${item.titulo} al carrito! ☕`, 'success');
@@ -66,7 +65,6 @@ function Menu() {
     sectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }, [state.paso]);
 
-  // Filtrar y ordenar productos
   const itemsFiltradosYOrdenados = items
     .filter(item => state.categoria === 'todos' || item.categoria === state.categoria)
     .filter(item => {
@@ -86,7 +84,6 @@ function Menu() {
 
   function renderPasos() {
     switch (state.paso) {
-      // ── PASO 0: CARTA ──────────────────────────────────────────
       case 0:
         return (
           <section className="menu" id="carta" ref={sectionRef}>
@@ -104,7 +101,6 @@ function Menu() {
               ))}
             </div>
 
-            {/* Filtros de Buscador y Ordenación */}
             <div className="menu-filters">
               <div className="search-box">
                 <span className="search-icon" aria-hidden="true">🔍</span>
@@ -171,7 +167,6 @@ function Menu() {
                     <div className="menu-item-info">
                       <h3>{item.titulo}</h3>
 
-                      {/* Badges de alérgenos / dieta */}
                       {item.badges && item.badges.length > 0 && (
                         <ul className="badge-list" aria-label="Información dietética">
                           {item.badges.map((badge, i) => (
@@ -227,7 +222,6 @@ function Menu() {
           </section>
         );
 
-      // ── PASO 1: TIPO DE ENTREGA + FORMULARIO ───────────────────
       case 1:
         return (
           <section className="menu checkout-section" ref={sectionRef}>
@@ -281,7 +275,6 @@ function Menu() {
           </section>
         );
 
-      // ── PASO 2: PAGO SIMULADO ──────────────────────────────────
       case 2:
         return (
           <section className="menu checkout-section" ref={sectionRef}>
@@ -312,7 +305,6 @@ function Menu() {
           </section>
         );
 
-      // ── PASO 3: CONFIRMACIÓN ───────────────────────────────────
       case 3:
         return (
           <div className="checkout-confirm-wrap" ref={sectionRef}>
