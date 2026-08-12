@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useCart } from '../context/CartContext.jsx';
+import { useCart } from '../hooks/useCart';
 
 export default function ResumenTicket({
   mostrarBotones,
